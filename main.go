@@ -33,7 +33,7 @@ func main() {
 	http.HandleFunc("/api/arma/start", start)
 	http.HandleFunc("/api/arma/stop", stop)
 	http.Handle("/", http.FileServer(data))
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe("127.0.0.1:8080", nil))
 }
 
 func start(w http.ResponseWriter, r *http.Request) {
