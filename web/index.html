@@ -58,6 +58,7 @@
           'normal':
           [
             '-mod=mods/SOCOMD_Core/@ace3',
+            '-mod=mods/SOCOMD_Core/@acex',
             '-mod=mods/SOCOMD_Core/@cba_a3',
             '-mod=mods/SOCOMD_Core/@cup_terrains_core',
             '-mod=mods/SOCOMD_Core/@cup_terrains_maps',
@@ -81,6 +82,7 @@
           ],
           'hardcore': [
             '-mod=mods/SOCOMD_Core/@ace3',
+            '-mod=mods/SOCOMD_Core/@acex',
             '-mod=mods/SOCOMD_Core/@cba_a3',
             '-mod=mods/SOCOMD_Core/@cup_terrains_core',
             '-mod=mods/SOCOMD_Core/@cup_terrains_maps',
@@ -132,6 +134,7 @@
             }
           }).then(function(response) {
             console.log(response);
+            alert(response.statusText);
           })
         },
         stop: function(server) {
@@ -144,6 +147,7 @@
             }
           }).then(function(response) {
             console.log(response);
+            alert(response.statusText);
           })
         }
       }
