@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <title>Socomd Panel</title>
+</head>
+<body>
+  <div id="app">
+    <div class="header">
+      <img src="http://www.socomd.com/img/socomd-header.png" alt="Vue logo"><p class="wonky">Panel</p>
+    </div>
+    <div class="content">
+      <div>
+        <li v-for="server in servers">
+          <span>{{server.name}}</span><select v-model="server.mods"><option v-for="(value, name) in modsets" :key="name" :value="value"> {{name}}</option></select><button v-on:click="start(server.name, server.mods, password)">Start</button><button v-on:click="stop(server.name, password)">Stop</button>
+        </li>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    html, body {
+      margin: 0px;
+      height: 100%;
+      width: 100%;
+    }
+    .header {
+      grid-area: header;
+      display: flex;
+      justify-content: center;
+      background: darkgray;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .content {
+      padding-top: 10px;
+      grid-area: Content;
+    }
+    .wonky {
+      transform: rotate(10deg); /* gotta make it have some flair till it's done properly */
+    }
+    #app {
+      display: grid;
+      height: 100%;
+      grid-template-rows: 80px auto;
+      grid-template-columns: auto 980px auto; 
+      grid-template-areas: "header header header" ". Content .";
+    }   
+  </style>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        servers: [{'name':'Primary','mods':[]},{'name':'Secondary','mods':[]}],
+        modsets: {
+          'normal':
+          [
+            '-mod=mods/SOCOMD_Core/@ace3',
+            '-mod=mods/SOCOMD_Core/@cba_a3',
+            '-mod=mods/SOCOMD_Core/@cup_terrains_core',
+            '-mod=mods/SOCOMD_Core/@cup_terrains_maps',
+            '-mod=mods/SOCOMD_Core/@cup_units',
+            '-mod=mods/SOCOMD_Core/@cup_vehicles',
+            '-mod=mods/SOCOMD_Core/@cup_weapons',
+            '-mod=mods/SOCOMD_Core/@helpers',
+            '-mod=mods/SOCOMD_Core/@interface',
+            '-mod=mods/SOCOMD_Core/@socomd_core',
+            '-mod=mods/SOCOMD_Core/@socomd_content',
+            '-mod=mods/SOCOMD_Core/@acre2',
+            '-mod=mods/SOCOMD_Core/@wearables',
+            '-mod=mods/SOCOMD_Core/@weapons',
+            '-mod=mods/SOCOMD_Core/@sma',
+            '-mod=mods/SOCOMD_Core/@uniforms',
+            '-mod=mods/SOCOMD_Core/@em',
+            '-mod=mods/SOCOMD_Core/@vcomai3',
+            '-mod=mods/SOCOMD_Core/@mbg',
+            '-mod=mods/SOCOMD_Core/@melb',
+            '-mod=mods/SOCOMD_Core/@vet_unflipping',
+          ],
+          'hardcore': [
+            '-mod=mods/SOCOMD_Core/@ace3',
+            '-mod=mods/SOCOMD_Core/@cba_a3',
+            '-mod=mods/SOCOMD_Core/@cup_terrains_core',
+            '-mod=mods/SOCOMD_Core/@cup_terrains_maps',
+            '-mod=mods/SOCOMD_Core/@cup_units',
+            '-mod=mods/SOCOMD_Core/@cup_vehicles',
+            '-mod=mods/SOCOMD_Core/@cup_weapons',
+            '-mod=mods/SOCOMD_Core/@helpers',
+            '-mod=mods/SOCOMD_Core/@interface',
+            '-mod=mods/SOCOMD_Core/@socomd_core',
+            '-mod=mods/SOCOMD_Core/@socomd_content',
+            '-mod=mods/SOCOMD_Core/@acre2',
+            '-mod=mods/SOCOMD_Core/@wearables',
+            '-mod=mods/SOCOMD_Core/@weapons',
+            '-mod=mods/SOCOMD_Core/@sma',
+            '-mod=mods/SOCOMD_Core/@uniforms',
+            '-mod=mods/SOCOMD_Core/@em',
+            '-mod=mods/SOCOMD_Core/@vcomai3',
+            '-mod=mods/SOCOMD_Core/@mbg',
+            '-mod=mods/SOCOMD_Core/@melb',
+            '-mod=mods/SOCOMD_Core/@vet_unflipping',
+            '-mod=mods/SOCOMD_Extra/@socomd_hardcore'
+          ],
+          'joint': [
+            '-mod=mods/joint_ops/160th_sor/@joint160th_ace3',
+            '-mod=mods/joint_ops/160th_sor/@joint160th_acre2',
+            '-mod=mods/joint_ops/160th_sor/@joint160th_cba_a3',
+            '-mod=mods/joint_ops/160th_sor/@joint160th_em',
+            '-mod=mods/joint_ops/160th_sor/@joint160th_sma',
+            '-mod=mods/joint_ops/160th_sor/@joint160th_helpers',
+            '-mod=mods/joint_ops/160th_sor/@joint160th_interface',
+            '-mod=mods/joint_ops/160th_sor/@joint160th_socomd_160th',
+            '-mod=mods/joint_ops/160th_sor/@joint160th_socomd_core',
+            '-mod=mods/joint_ops/160th_sor/@joint160th_vcomai3',
+            '-mod=mods/joint_ops/160th_sor/@joint160th_melb'
+          ]
+        },
+        extras: []
+      },
+      methods: {
+        start: function(server,modslist) {
+          console.log("Starting",server,modslist);
+          
+          axios({
+            method: 'post',
+            url: '/api/arma/start',
+            data: {
+              'server':server,
+              'mods':modslist
+            }
+          }).then(function(response) {
+            console.log(response);
+          })
+        },
+        stop: function(server) {
+          console.log("Stopping",server);
+          axios({
+            method: 'post',
+            url: '/api/arma/stop',
+            data: {
+              'server': server,
+            }
+          }).then(function(response) {
+            console.log(response);
+          })
+        }
+      }
+    })
+  </script>
+</body>
+</html>
