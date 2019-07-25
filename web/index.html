@@ -15,7 +15,7 @@
         <li v-for="server in servers">
           <span>{{server.name}} Server</span><br>
 		  Modset:<select v-model="server.mods"><option v-for="(value, name) in modsets" :key="name" :value="value"> {{name}}</option></select>
-		  Map:<select v-model="server.maps"><option v-for="(value, name) in maps" :key="name" :value="value"> {{name}}</option></select><br>
+		  Map:<select v-model="server.maps"><option v-for="(value, name) in maps" :key="name" :value="value" default="none"> {{name}}</option></select><br>
 		  <button v-on:click="start(server.name, server.mods, server.maps, password)">Start</button><button v-on:click="stop(server.name, password)">Stop</button><input type="checkbox" name="logging" value="enablelogs" disabled>Enable Logs</input><br><br>
         </li>
       </div>
@@ -124,7 +124,30 @@
         },
         extras: [],
 		maps: {
+			'none': ['']
 			'@abramia': ['-mod=mods/SOCOMD_Extra/@abramia']
+			'@aliabad-region': ['-mod=mods/SOCOMD_Extra/@aliabad-region']
+			'@anizay': ['-mod=mods/SOCOMD_Extra/@anizay']
+			'@beketov': ['-mod=mods/SOCOMD_Extra/@beketov']
+			'@celle': ['-mod=mods/SOCOMD_Extra/@celle']
+			'@cla_clafghan': ['-mod=mods/SOCOMD_Extra/@cla_clafghan']
+			'@diyala': ['-mod=mods/SOCOMD_Extra/@diyala']
+			'@fallujah': ['-mod=mods/SOCOMD_Extra/@fallujah']
+			'@fata_a3': ['-mod=mods/SOCOMD_Extra/@fata_a3']
+			'@fsf_al_rayak': ['-mod=mods/SOCOMD_Extra/@fsf_al_rayak']
+			'@ihantala': ['-mod=mods/SOCOMD_Extra/@ihantala']
+			'@isladuala_a3': ['-mod=mods/SOCOMD_Extra/@isladuala_a3']
+			'@mcn_hazarkot': ['-mod=mods/SOCOMD_Extra/@mcn_hazarkot']
+			'@panthera_a3': ['-mod=mods/SOCOMD_Extra/@panthera_a3']
+			'@praa_av': ['-mod=mods/SOCOMD_Extra/@praa_av']
+			'@prkz': ['-mod=mods/SOCOMD_Extra/@prkz']
+			'@pulau': ['-mod=mods/SOCOMD_Extra/@pulau']
+			'@rosche': ['-mod=mods/SOCOMD_Extra/@rosche']
+			'@ruha': ['-mod=mods/SOCOMD_Extra/@ruha']
+			'@tem_kurjari': ['-mod=mods/SOCOMD_Extra/@tem_kurjari']
+			'@tem_suursaariv': ['-mod=mods/SOCOMD_Extra/@tem_suursaariv']
+			'@tem_vinjesvingen': ['-mod=mods/SOCOMD_Extra/@tem_vinjesvingen']
+			'@thirsk': ['-mod=mods/SOCOMD_Extra/@thirsk']
 		}
       },
       methods: {
