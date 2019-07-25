@@ -16,7 +16,7 @@
           <span>{{server.name}} Server</span><br>
 		  Modset:<select v-model="server.mods"><option v-for="(value, name) in modsets" :key="name" :value="value"> {{name}}</option></select>
 		  Map:<select v-model="server.maps"><option v-for="(value, name) in maps" :key="name" :value="value"> {{name}}</option></select><br>
-		  <button v-on:click="start(server.name, server.mods, password)">Start</button><button v-on:click="stop(server.name, password)">Stop</button><input type="checkbox" name="logging" value="enablelogs" disabled>Enable Logs</input><br><br>
+		  <button v-on:click="start(server.name, server.mods, server.maps, password)">Start</button><button v-on:click="stop(server.name, password)">Stop</button><input type="checkbox" name="logging" value="enablelogs" disabled>Enable Logs</input><br><br>
         </li>
       </div>
     </div>
@@ -56,7 +56,7 @@
     var app = new Vue({
       el: '#app',
       data: {
-        servers: [{'name':'Primary','mods':[]},{'name':'Secondary','mods':[]}],
+        servers: [{'name':'Primary','mods':[],'maps':[]},{'name':'Secondary','mods':[],'maps':[]}],
         modsets: {
           'normal':
           [
@@ -124,12 +124,12 @@
         },
         extras: [],
 		maps: {
-			'@abramia': ['-mods=mods/SOCOMD_Extra/@abramia'],
-		},
+			'@abramia': ['-mods=mods/SOCOMD_Extra/@abramia']
+		}
       },
       methods: {
-        start: function(server,modslist) {
-          console.log("Starting",server,modslist);
+        start: function(server,modslist,maps) {
+          console.log("Starting",server,modslist,maps);
           
           axios({
             method: 'post',
@@ -137,7 +137,7 @@
             data: {
               'server':server,
               'mods':modslist,
-			  'maps':maps
+			  'maps':maps,
             }
           }).then(function(response) {
             console.log(response);
