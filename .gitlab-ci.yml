@@ -1,0 +1,16 @@
+# This file is a template, and might need editing before it works on your project.
+image: golang:latest
+
+stages:
+  - build
+
+build:
+  stage: build
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - make deploy
