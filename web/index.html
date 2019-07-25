@@ -14,12 +14,8 @@
       <div>
         <li v-for="server in servers">
           <span>{{server.name}}</span>
-          <select v-model="server.mods">
-            <option v-for="(value, name) in modsets" :key="name" :value="value">
-              {{name}}
-            </option>
-          </select>
-          <button v-on:click="start(server.name, server.mods,selectedExtras)">
+
+          <button v-on:click="start(server.name, mods,selectedExtras)">
             Start
           </button>
           <button v-on:click="stop(server.name)">
@@ -28,11 +24,19 @@
         </li>
       </div>
       <div>
+	    <select v-model="mods">
+            <option v-for="(value, name) in modsets" :key="name" :value="value">
+              {{name}}
+            </option>
+        </select>
+		<br>
         <select multiple v-model="selectedExtras">
           <option v-for="(value, name) in extras" :key="name" :value="value">
             {{name}}
           </option>
         </select>
+		<br>
+		<input type="checkbox" name="logging" value="enablelogs" disabled>Enable Logs</input>
       </div>
     </div>
   </div>
