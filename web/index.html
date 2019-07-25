@@ -12,9 +12,24 @@
     </div>
     <div class="content">
       <div>
+        Modset:<br><select v-model="mods" :required=true class="list">
+          <option v-for="(value, name) in modsets" :key="name" :value="value" :selected="name == 'normal'">
+          {{name}}
+          </option>
+        </select>
+        <br><br>
+        Extras:<br><select multiple v-model="selectedExtras" size="32" class="list">
+          <option v-for="(value, name) in extras" :key="name" :value="value">
+            {{name}}
+          </option>
+        </select>
+        <br>
+        <input type="checkbox" name="logging" value="enablelogs" disabled>Enable Logs</input>
+      </div>
+	  <br>
+	  <div>
         <li v-for="server in servers">
           <span>{{server.name}}</span>
-
           <button v-on:click="start(server.name, mods,selectedExtras)">
             Start
           </button>
@@ -22,21 +37,6 @@
             Stop
           </button>
         </li>
-      </div>
-      <div>
-        <select v-model="mods" :required=true>
-          <option v-for="(value, name) in modsets" :key="name" :value="value" :selected="name == 'normal'">
-          {{name}}
-          </option>
-        </select>
-        <br>
-        <select multiple v-model="selectedExtras">
-          <option v-for="(value, name) in extras" :key="name" :value="value">
-            {{name}}
-          </option>
-        </select>
-        <br>
-        <input type="checkbox" name="logging" value="enablelogs" disabled>Enable Logs</input>
       </div>
     </div>
   </div>
@@ -62,12 +62,16 @@
     .wonky {
       transform: rotate(10deg); /* gotta make it have some flair till it's done properly */
     }
+		.list {
+	background: darkgray;
+	}
     #app {
       display: grid;
       height: 100%;
       grid-template-rows: 80px auto;
       grid-template-columns: auto 980px auto; 
       grid-template-areas: "header header header" ". Content .";
+	  background: gray;
     }   
   </style>
 
