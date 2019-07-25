@@ -13,11 +13,11 @@
     <div class="content">
       <div>
         <li v-for="server in servers">
-          <span>{{server.name}} Server</span><br>
-		  Modset:<select v-model="server.mods"><option v-for="(value, name) in modsets" :key="name" :value="value"> {{name}}</option></select>
-		  Map:<select v-model="server.maps"><option v-for="(value, name) in maps" :key="name" :value="value" default="none"> {{name}}</option></select><br>
-		  <button v-on:click="start(server.name, server.mods, server.maps, password)">Start</button><button v-on:click="stop(server.name, password)">Stop</button><input type="checkbox" name="logging" value="enablelogs" disabled>Enable Logs</input><br><br>
+          <span>{{server.name}}</span><select v-model="server.mods"><option v-for="(value, name) in modsets" :key="name" :value="value"> {{name}}</option></select><button v-on:click="start(server.name, server.mods,selectedExtras)">Start</button><button v-on:click="stop(server.name)">Stop</button>
         </li>
+      </div>
+      <div>
+        <select multiple v-model="selectedExtras"><option v-for="(value, name) in extras" :key="name" :value="value"> {{name}}</option></select>
       </div>
     </div>
   </div>
@@ -56,7 +56,8 @@
     var app = new Vue({
       el: '#app',
       data: {
-        servers: [{'name':'Primary','mods':[],'maps':[]},{'name':'Secondary','mods':[],'maps':[]}],
+        servers: [{'name':'Primary','mods':[],'extras':[]},{'name':'Secondary','mods':[],'extras':[]}],
+        selectedExtras: [],
         modsets: {
           'normal':
           [
@@ -107,23 +108,9 @@
             '-mod=mods/SOCOMD_Core/@melb',
             '-mod=mods/SOCOMD_Core/@vet_unflipping',
             '-mod=mods/SOCOMD_Extra/@socomd_hardcore'
-          ],
-          'joint': [
-            '-mod=mods/joint_ops/160th_sor/@joint160th_ace3',
-            '-mod=mods/joint_ops/160th_sor/@joint160th_acre2',
-            '-mod=mods/joint_ops/160th_sor/@joint160th_cba_a3',
-            '-mod=mods/joint_ops/160th_sor/@joint160th_em',
-            '-mod=mods/joint_ops/160th_sor/@joint160th_sma',
-            '-mod=mods/joint_ops/160th_sor/@joint160th_helpers',
-            '-mod=mods/joint_ops/160th_sor/@joint160th_interface',
-            '-mod=mods/joint_ops/160th_sor/@joint160th_socomd_160th',
-            '-mod=mods/joint_ops/160th_sor/@joint160th_socomd_core',
-            '-mod=mods/joint_ops/160th_sor/@joint160th_vcomai3',
-            '-mod=mods/joint_ops/160th_sor/@joint160th_melb'
           ]
         },
-        extras: [],
-		maps: {
+		extras: {
 			'none': [''],
 			'@abramia': ['-mod=mods/SOCOMD_Extra/@abramia'],
 			'@aliabad-region': ['-mod=mods/SOCOMD_Extra/@aliabad-region'],
@@ -151,16 +138,15 @@
 		}
       },
       methods: {
-        start: function(server,modslist,maps) {
-          console.log("Starting",server,modslist,maps);
-          
+        start: function(server,modslist,extras) {
+          var mods = [...modslist,...extras];
+          console.log("Starting",server,mods);
           axios({
             method: 'post',
             url: '/api/arma/start',
             data: {
               'server':server,
-              'mods':modslist,
-			  'maps':maps,
+              'mods':mods
             }
           }).then(function(response) {
             console.log(response);
