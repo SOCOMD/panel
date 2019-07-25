@@ -13,7 +13,10 @@
     <div class="content">
       <div>
         <li v-for="server in servers">
-          <span>{{server.name}}</span><select v-model="server.mods"><option v-for="(value, name) in modsets" :key="name" :value="value"> {{name}}</option></select><button v-on:click="start(server.name, server.mods, password)">Start</button><button v-on:click="stop(server.name, password)">Stop</button>
+          <span>{{server.name}} Server</span><br>
+		  Modset:<select v-model="server.mods"><option v-for="(value, name) in modsets" :key="name" :value="value"> {{name}}</option></select>
+		  Map:<select v-model="server.maps"><option v-for="(value, name) in maps" :key="name" :value="value"> {{name}}</option></select><br>
+		  <button v-on:click="start(server.name, server.mods, password)">Start</button><button v-on:click="stop(server.name, password)">Stop</button><input type="checkbox" name="logging" value="enablelogs" disabled>Enable Logs</input><br><br>
         </li>
       </div>
     </div>
@@ -119,7 +122,10 @@
             '-mod=mods/joint_ops/160th_sor/@joint160th_melb'
           ]
         },
-        extras: []
+        extras: [],
+		maps: {
+			'@abramia': ['-mods=mods/SOCOMD_Extra/@abramia'],
+		},
       },
       methods: {
         start: function(server,modslist) {
