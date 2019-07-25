@@ -16,8 +16,8 @@ import (
 const (
 	primaryServerModsFile   = "/srv/games/servers/arma3_common/SOCOMD_mods.load"
 	secondaryServerModsFile = "/srv/games/servers/arma3_common/SECONDARY_mods.load"
-	startCMD                = "sudo -Hiu gameserver socomd-server start %s"
-	stopCMD                 = "sudo -Hiu gameserver socomd-server stop %s"
+	startCMD                = "socomd-server start %s"
+	stopCMD                 = "socomd-server stop %s"
 	primaryName             = "SOCOMD"
 	secondaryName           = "SECONDARY"
 )
