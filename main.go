@@ -26,6 +26,7 @@ type armaAPI struct {
 	Server   string   `json:"server"`
 	Password string   `json:"password"`
 	Mods     []string `json:"mods"`
+	Maps     []string `json:"maps"`
 }
 
 func main() {
@@ -79,7 +80,7 @@ func start(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("Command too short %#v\n", launchCommand)
 		return
 	}
-	ioutil.WriteFile(file, []byte(strings.Join(data.Mods, "\n")), 0022)
+	ioutil.WriteFile(file, []byte(strings.Join(data.Mods, "\n") []byte(strings.Join(data.Maps, "\n")), 0022)
 	cmd := exec.Command(launchCommand[0], launchCommand[1:]...)
 	cmd.Stdout = os.Stdout
 	err = cmd.Run()
