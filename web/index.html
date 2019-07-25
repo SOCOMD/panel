@@ -24,19 +24,19 @@
         </li>
       </div>
       <div>
-	    <select v-model="mods">
-            <option v-for="(value, name) in modsets" :key="name" :value="value">
-              {{name}}
-            </option>
+        <select v-model="mods" :required=true>
+          <option v-for="(value, name) in modsets" :key="name" :value="value" :selected="name == 'normal'">
+          {{name}}
+          </option>
         </select>
-		<br>
+        <br>
         <select multiple v-model="selectedExtras">
           <option v-for="(value, name) in extras" :key="name" :value="value">
             {{name}}
           </option>
         </select>
-		<br>
-		<input type="checkbox" name="logging" value="enablelogs" disabled>Enable Logs</input>
+        <br>
+        <input type="checkbox" name="logging" value="enablelogs" disabled>Enable Logs</input>
       </div>
     </div>
   </div>
@@ -75,7 +75,8 @@
     var app = new Vue({
       el: '#app',
       data: {
-        servers: [{'name':'Primary','mods':[],'extras':[]},{'name':'Secondary','mods':[],'extras':[]}],
+        mods: [],
+        servers: [{'name':'Primary'},{'name':'Secondary'}],
         selectedExtras: [],
         modsets: {
           'normal':
