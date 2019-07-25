@@ -26,7 +26,7 @@ type armaAPI struct {
 	Server   string   `json:"server"`
 	Password string   `json:"password"`
 	Mods     []string `json:"mods"`
-//	Maps     []string `json:"maps"`
+	Maps     []string `json:"maps"`
 }
 
 func main() {
