@@ -6,6 +6,6 @@ setup:
 	./go-install.sh
 	go get -u github.com/gobuffalo/packr/packr
 
-deploy: setup build
+deploy: build
 	mkdir -p /srv/http/panel.socomd.com
 	cp ./socomd-panel /srv/http/panel.socomd.com/socomd-panel 
