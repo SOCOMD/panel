@@ -30,7 +30,7 @@
 	  <div>
         <li v-for="server in servers">
           <span>{{server.name}}</span>
-          <button v-on:click="start(server.name, mods,selectedExtras)">
+          <button v-on:click="start(server.name, mods,selectedExtras,logging)">
             Start
           </button>
           <button v-on:click="stop(server.name)">
@@ -144,7 +144,7 @@
         }
       },
       methods: {
-        start: function(server,modslist,extras) {
+        start: function(server,modslist,extras,logging) {
           var mods = [...modslist,...extras];
           console.log("Starting",server,mods);
           axios({
