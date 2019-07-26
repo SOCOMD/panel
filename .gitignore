@@ -1,2 +1,5 @@
 socomd-panel
 web/node_modules
+.vs/slnx.sqlite
+*.suo
+.vs/ProjectSettings.json

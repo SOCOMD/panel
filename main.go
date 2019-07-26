@@ -14,18 +14,43 @@ import (
 )
 
 const (
-	primaryServerModsFile   = "/srv/games/servers/arma3_common/SOCOMD_mods.load"
-	secondaryServerModsFile = "/srv/games/servers/arma3_common/SECONDARY_mods.load"
+	ServerModsFile			= "/srv/games/arma3/common/mods.load"
 	startCMD                = "socomd-server start %s"
 	stopCMD                 = "socomd-server stop %s"
-	primaryName             = "SOCOMD"
-	secondaryName           = "SECONDARY"
+	primaryName             = "primary"
+	secondaryName           = "secondary"
+
+	// Commandline Options
+	defaultOpt				= "-world=empty -noPause -noSound -noSplash -enableHT"
+	noLogs					= "-noLogs"
+	serverOpt				= "-name=server -cfg=common/basic.cfg -config=common/${name}.cfg -ip=139.99.144.205 -port=${port} -maxplayers=100"
+	clientOpt				= "-client -connect=127.0.0.1 -password=SaS -name=${name}"
+	parFile					= "-par=common/mods.load"
 )
 
 type armaAPI struct {
 	Server   string   `json:"server"`
 	Password string   `json:"password"`
 	Mods     []string `json:"mods"`
+	Logging  bool     `json:"logging"`
+}
+
+func parameters(data armaAPI) string {
+	pars := []string{
+        defaultOps, parFile,
+    }
+
+    if data.Logging == false {
+        pars = append(pars, noLogs)
+    }
+
+    if data.Server != "Client" {
+        pars = append(pars, serverOpt)
+    } else {
+		pars = append(pars, clientOpt)
+	}
+
+    return strings.Join(pars, "")
 }
 
 func main() {
@@ -55,6 +80,8 @@ func start(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
+
+	pars := parameters(data)
 
 	file := ""
 	var launchCommand []string
