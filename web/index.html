@@ -19,8 +19,8 @@
         </select>
         <br><br>
         Extras:<br>
-<span  v-model="selectedExtras"  v-for="(value, name) in extras" >
-          <input type="checkbox" :name="name" :key="name" :value="value">
+<span  v-for="(value, name) in extras" >
+          <input type="checkbox" name="name"  v-model="selectedExtras" :key="name" :value="value">
             {{name}}
           </input>
 		  <br>
