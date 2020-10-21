@@ -18,11 +18,13 @@
           </option>
         </select>
         <br><br>
-        Extras:<br><select multiple v-model="selectedExtras" size="32" class="list">
-          <option v-for="(value, name) in extras" :key="name" :value="value">
+        Extras:<br>
+<span  v-model="selectedExtras"  v-for="(value, name) in extras" >
+          <input type="checkbox" :name="name" :key="name" :value="value">
             {{name}}
-          </option>
-        </select>
+          </input>
+		  <br>
+        </span>
         <br>
         <input type="checkbox" name="logging" value="enablelogs" disabled>Enable Logs</input>
       </div>
@@ -125,7 +127,7 @@
         },
         mods: [],
         extras: {
-          'none': '',
+          // 'none': '',
           '@abramia': '-mod=mods/SOCOMD_Extra/@abramia',
           '@aliabad-region': '-mod=mods/SOCOMD_Extra/@aliabad-region',
           '@anizay': '-mod=mods/SOCOMD_Extra/@anizay',
@@ -155,6 +157,7 @@
           '@virolahti':'-mod=mods/SOCOMD_Extra/@virolahti',
 		  '@lythium (requires jbad)':'-mod=mods/SOCOMD_Extra/@lythium',
 		  '@jbad':'-mod=mods/SOCOMD_Extra/@jbad',
+          '@bettir': '-mod=mods/SOCOMD_Extra/@bettir',
         }
       },
       methods: {
