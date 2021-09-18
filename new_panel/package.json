@@ -11,7 +11,7 @@
     "author": "Michael Wanyoike",
     "license": "MIT",
     "dependencies": {
-        "axios": "^0.18.0",
+        "axios": "^0.21.2",
         "body-parser": "^1.18.2",
         "dotenv": "^5.0.1",
         "express": "^4.17.1",
