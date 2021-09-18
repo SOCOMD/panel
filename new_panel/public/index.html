@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="scripts/semantic-ui-css/semantic.min.css">
+    <link rel="stylesheet" href="scripts/semantic-ui-calendar/dist/calendar.min.css">
+    <!-- <link rel="stylesheet" href="scripts/semantic-ui-form/form.min.css"> -->
+    <link rel="stylesheet" href="scripts/semantic-ui-dropdown/dropdown.min.css">
+    <title>SOCOMD Panel</title>
+</head>
+
+<body style="background-color:rgb(83, 83, 83); color:#ccc">
+    <div class="ui container gray">
+        <!-- Navigation Menu -->
+        <div class="ui four item inverted gray menu">
+            <a class="item" href="/">
+        Overview
+      </a>
+            <a class="item" href="/primary">
+        Primary Server
+      </a>
+            <a class="item" href="/secondary">
+        Secondary Server
+</a>
+
+            <div class="ui button item" id="refresh">
+
+                <i class="undo icon"></i>refresh
+            </div>
+        </div>
+        <!-- Error Template -->
+        <script id="error-template" type="text/x-handlebars-template">
+            <div class="ui {{color}} inverted segment" style="height:250px;">
+                <br>
+                <h2 class="ui center aligned icon header">
+                    <i class="exclamation triangle icon"></i>
+                    <div class="content">
+                        {{title}}
+                        <div class="sub header">{{message}}</div>
+                    </div>
+                </h2>
+            </div>
+        </script>
+        <script id="server-overview-template" type="text/x-handlebars-template">
+            <h1 class="ui header">Overview</h1>
+            <hr>
+            <br>
+            <div class="ui container stackable grid">
+                <div class="">
+                    <h3 class="ui header">Primary</h1>
+                        <hr>
+                        <div class="ui loading basic segment">
+                            <div class="ui divided horizontal list">
+                                <div class="item">
+                                    <i class="cog icon"></i>
+                                    <div class="content">
+                                        <div class="ui sub header">Status</div>
+                                        <span>{{statusPrimary}}</span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="map icon"></i>
+                                    <div class="content">
+                                        <div class="ui sub header">Map</div>
+                                        <span>{{mapPrimary}}</span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="calendar alternate outline icon"></i>
+                                    <div class="content">
+                                        <div class="ui sub header">Mssion</div>
+                                        <span>{{missionPrimary}}</span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="user icon"></i>
+                                    <div class="content">
+                                        <div class="ui sub header">Player Count</div>
+                                        <span>{{playerCountPrimary}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="ui celled striped selectable inverted table">
+                                <thead>
+                                    <tr>
+                                        <th>Players</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each playersPrimary}}
+                                    <tr>
+                                        <td>{{name}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+                <div class="">
+                    <h3 class="ui header">Secondary</h1>
+                        <hr>
+                        <div class="ui loading basic segment">
+                            <div class="ui divided horizontal list">
+                                <div class="item">
+                                    <i class="cog icon"></i>
+                                    <div class="content">
+                                        <div class="ui sub header">Status</div>
+                                        <span>{{statusSecondary}}</span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="map icon"></i>
+                                    <div class="content">
+                                        <div class="ui sub header">Map</div>
+                                        <span>{{mapSecondary}}</span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="calendar alternate outline icon"></i>
+                                    <div class="content">
+                                        <div class="ui sub header">Mssion</div>
+                                        <span>{{missionSecondary}}</span>
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <i class="user icon"></i>
+                                    <div class="content">
+                                        <div class="ui sub header">Player Count</div>
+                                        <span>{{playerCountSecondary}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="ui celled striped selectable inverted table">
+                                <thead>
+                                    <tr>
+                                        <th>Players</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each playersPrimary}}
+                                    <tr>
+                                        <td>{{name}}</td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+            </div>
+        </script>
+
+        <script id="server-detailed-template" type="text/x-handlebars-template">
+            <h1 class="ui header">{{name}}</h1>
+            <hr>
+            <div class="ui loading will-load basic segment">
+                <div class="ui divided horizontal list">
+                    <div class="item">
+                        <i class="cog icon"></i>
+                        <div class="content">
+                            <div class="ui sub header">Status</div>
+                            <span>{{status}}</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="map icon"></i>
+                        <div class="content">
+                            <div class="ui sub header">Map</div>
+                            <span>{{map}}</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="calendar alternate outline icon"></i>
+                        <div class="content">
+                            <div class="ui sub header">Mssion</div>
+                            <span>{{mission}}</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <i class="user icon"></i>
+                        <div class="content">
+                            <div class="ui sub header">Player Count</div>
+                            <span>{{playerCount}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui list">
+                    <div class="item">
+                        <div class="ui form">
+                            <div class="field">
+                                <select id="extras-select" class="ui fluid search dropdown" {{#ifEquals status 'Online'}} disabled {{/ifEquals}} multiple>
+                              <option value="">Mods...</option>
+                              {{#each extras}}
+                              <option value="{{this}}">{{@key}}</option>
+                              {{/each}}
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="ui button  {{#ifEquals status 'Online'}} disabled {{/ifEquals}}" id="turnOn" data="{{name}}" tabindex="0">
+                            Turn On
+                        </div>
+                        <div class="ui button {{#ifEquals status 'Offline'}} disabled {{/ifEquals}}" id="turnOff" data="{{name}}" tabindex="1">
+                            Turn Off
+                        </div>
+                    </div>
+                </div>
+                <table class="ui celled compact striped selectable inverted table">
+                    <thead>
+                        <tr>
+                            <th>Players</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each players}}
+                        <tr>
+                            <td>{{name}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </script>
+
+        <!-- Page content -->
+        <div id="app"></div>
+
+        <!-- Scripts -->
+        <script src="scripts/jquery/dist/jquery.min.js"></script>
+        <script src="scripts/semantic-ui-css/semantic.min.js"></script>
+        <script src="scripts/semantic-ui-calendar/dist/calendar.min.js"></script>
+        <!-- <script src="scripts/semantic-ui-form/form.min.js"></script> -->
+        <script src="scripts/semantic-ui-dropdown/dropdown.min.js"></script>
+        <script src="scripts/axios/dist/axios.min.js"></script>
+        <script src="scripts/handlebars/dist/handlebars.min.js"></script>
+        <script src="scripts/vanilla-router/dist/vanilla-router.min.js"></script>
+        <script src="js/app.js"></script>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+{
+    "name": "socomd-panel",
+    "version": "1.0.0",
+    "description": "This is the updated panel for SOCOMD to use, allows for viewing of the server status, players online, current map and mission",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "keywords": [],
+    "author": "Michael Wanyoike",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^0.18.0",
+        "body-parser": "^1.18.2",
+        "dotenv": "^5.0.1",
+        "express": "^4.17.1",
+        "gamedig": "^3.0.7",
+        "handlebars": "^4.0.11",
+        "jquery": "^3.3.1",
+        "lookpath": "^1.2.2",
+        "semantic-ui-calendar": "0.0.8",
+        "semantic-ui-css": "^2.3.1",
+        "semantic-ui-dropdown": "^2.4.1",
+        "semantic-ui-form": "^2.4.0",
+        "vanilla-router": "^1.2.6"
+    }
+}
