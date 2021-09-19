@@ -95,9 +95,9 @@ app.post('/api/serverState', async(req, res) => {
                     }
                     console.log(stdout)
                 });
+                res.setHeader('Content-Type', 'application/json');
+                res.send(state);
             });
-            res.setHeader('Content-Type', 'application/json');
-            res.send(state);
         }).catch((error) => {
             let fileName = primaryName;
             if (req.body.port === 2402) { fileName = secondaryName }

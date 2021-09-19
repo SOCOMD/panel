@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 window.addEventListener('load', () => {
     const el = $('#app');
     var core = {};
@@ -87,6 +89,7 @@ window.addEventListener('load', () => {
                     "mission": missionPrimary,
                     "players": playersPrimary,
                     "playerCount": playerCountPrimary,
+                    "service": responsePrimary.body.service
                 },
                 "Secondary": {
                     "status": statusSecondary,
@@ -94,6 +97,7 @@ window.addEventListener('load', () => {
                     "mission": missionSecondary,
                     "players": playersSecondary,
                     "playerCount": playerCountSecondary,
+                    "service": responseSecondary.body.service
                 },
             };
             html = serverTemplate({ servers: servers });

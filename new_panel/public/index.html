@@ -110,7 +110,8 @@
                         <h3 class="ui header">{{@key}}</h1>
                             <hr>
                             <div class="ui loading basic segment">
-                                {{> serverInfo}} {{> playerList}}
+                                {{> serverInfo}}
+                                <code>{{service}}</code> {{> playerList}}
                             </div>
                     </div>
                     {{/each}}
@@ -124,6 +125,7 @@
             <hr>
             <div class="ui loading will-load basic segment">
                 {{> serverInfo}}
+                <code>{{service}}</code>
                 <div class="ui list">
                     <div class="item">
                         <div class="ui form">
