@@ -74,20 +74,30 @@ app.post('/api/serverState', async(req, res) => {
                     if (error) {
                         console.log(`error: ${error.message}`);
                         error["repsonse"] = error.message;
+
+                        res.send({
+                            status: "Offline",
+                            error: error,
+                            map: "",
+                            raw: { game: "" },
+                            players: []
+                        });
+                    } else {
+
+
+                        res.send({
+                            status: "starting...",
+                            error: error,
+                            map: "",
+                            raw: { game: "" },
+                            players: []
+                        });
                     }
                     if (stderr) {
                         console.log(`stderr: ${stderr}`);
                         error["repsonse"] = stderr;
                     }
                     console.log(stdout)
-                });
-
-                res.send({
-                    status: "Offline",
-                    error: error,
-                    map: "",
-                    raw: { game: "" },
-                    players: []
                 });
             });
         });
