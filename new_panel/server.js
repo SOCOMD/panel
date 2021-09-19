@@ -61,7 +61,7 @@ app.post('/api/serverState', async(req, res) => {
         }).then((state) => {
             console.log(state);
             state["status"] = "Online";
-            state["error"] = "none bozo";
+            state["error"] = "none purplemonkeydishwasher";
             let fileName = primaryName;
             if (req.body.port === 2402) { fileName = secondaryName }
             fs.readFile(`${pidFilePath}/${fileName}.pid`, function(err, data) {
