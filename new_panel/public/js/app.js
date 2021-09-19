@@ -12,11 +12,6 @@ window.addEventListener('load', () => {
     var currentServer = "Primary Server";
     var currentPort = 2302;
     var timer = null;
-    var timerData = null;
-    var primaryPerformance = [];
-    var primaryPlayers = [];
-    var secondaryPerformance = [];
-    var secondaryPlayers = [];
     // Compile Handlebar Templates
     const errorTemplate = Handlebars.compile($('#error-template').html());
     const serverDetailTemplate = Handlebars.compile($('#server-detailed-template').html());
@@ -73,55 +68,13 @@ window.addEventListener('load', () => {
         currentPort = 2402;
         await handleDetailedInfo(currentServer, currentPort)
     });
-    async function getServerPerformance() {
-
-        if (timerData != null) {
-            window.clearTimeout(timerData);
-        }
-        timerData = window.setTimeout(() => {
-            timerData = null;
-            const responsePrimary = await api.get('/serverState', { port: 2302 });
-            const responseSecondary = await api.post('/serverState', { port: 2402 });
-            if (primaryPlayers.length > 30) {
-                primaryPlayers.slice(0, 1);
-            }
-            primaryPlayers.push(responsePrimary.data.players.length)
-            if (secondaryPlayers.length > 30) {
-                secondaryPlayers.slice(0, 1);
-            }
-            secondaryPlayers.push(responseSecondary.data.players.length)
-
-            if (primaryPerformance.length > 30) {
-                primaryPerformance.slice(0, 1);
-            }
-            if (!!responsePrimary.data.service) {
-                let arrP = responsePrimary.data.service.split("\n")
-                let arrP = arrP[1].split(" ")
-                primaryPerformance.push(parseFloat(arrP[3]))
-            } else {
-                primaryPerformance.push(0)
-            }
-            if (secondaryPerformance.length > 30) {
-                secondaryPerformance.slice(0, 1);
-            }
-            if (!!responseSecondary.data.service) {
-                let arrS = responseSecondary.data.service.split("\n")
-                let arrS = arrS[1].split(" ")
-                secondaryPerformance.push(parseFloat(arrS[3]))
-            } else {
-                secondaryPerformance.push(0)
-            }
-            getServerPerformance()
-        }, 1000);
-    };
-    getServerPerformance()
     async function handleOverviewInfo() {
 
         let html = serverTemplate({ servers: { "Primary": {}, "Secondary": {} } }); // pass empty server objects to display structure on page load
         el.html(html);
         try {
             // Load Currency Rates
-            const responsePrimary = await api.get('/serverState', { port: 2302 });
+            const responsePrimary = await api.post('/serverState', { port: 2302 });
             const responseSecondary = await api.post('/serverState', { port: 2402 });
             // Display Rates Table
             var { statusPrimary, mapPrimary, missionPrimary, playersPrimary, playerCountPrimary } = { statusPrimary: responsePrimary.data.status, mapPrimary: responsePrimary.data.map, missionPrimary: responsePrimary.data.raw.game, playersPrimary: responsePrimary.data.players, playerCountPrimary: responsePrimary.data.players.length };
@@ -141,7 +94,8 @@ window.addEventListener('load', () => {
                     "map": mapSecondary,
                     "mission": missionSecondary,
                     "players": playersSecondary,
-                    "playerCount": playerCountSecondary
+                    "playerCount": playerCountSecondary,
+                    "service": responseSecondary.data.service
                 },
             };
             html = serverTemplate({ servers: servers });
@@ -258,5 +212,5 @@ window.addEventListener('load', () => {
             timer = null;
             $(".message").transition('fade')
         }, 7000);;
-    };
+    }
 });
