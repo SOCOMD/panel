@@ -13,8 +13,8 @@ let jsonData = require(`${__dirname}/public/json/core.json`);
 const app = express();
 const port = 3131;
 
-const primaryServerModsFile = "/srv/games/servers/arma3_common/SOCOMD_mods.load";
-const secondaryServerModsFile = "/srv/games/servers/arma3_common/SECONDARY_mods.load";
+const primaryServerModsFile = "/srv/games/arma3/common/SOCOMD_mods.load";
+const secondaryServerModsFile = "/srv/games/arma3/common/SECONDARY_mods.load";
 const mainCMD = "socomd-server-win";
 const startCMD = mainCMD + " start ";
 const stopCMD = mainCMD + " stop ";
@@ -115,7 +115,7 @@ async function runCMD(req, res, action) {
                         if (err) throw err;
                         var jsonData = JSON.parse(data)
                         for (mod of jsonData) {
-                            fileText = fileText + mod.path + "\n";
+                            fileText = fileText + mod.path + "\r\n";
                         };
 
                         if (req.body.extras.length > 0) {
