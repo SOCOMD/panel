@@ -78,10 +78,10 @@ window.addEventListener('load', () => {
         if (timerData != null) {
             window.clearTimeout(timerData);
         }
-        timerData = window.setTimeout(async() => {
-            const responsePrimary = await api.post('/serverState', { port: 2302 });
-            const responseSecondary = await api.post('/serverState', { port: 2402 });
+        timerData = window.setTimeout(() => {
             timerData = null;
+            const responsePrimary = await api.get('/serverState', { port: 2302 });
+            const responseSecondary = await api.post('/serverState', { port: 2402 });
             if (primaryPlayers.length > 30) {
                 primaryPlayers.slice(0, 1);
             }
@@ -96,7 +96,7 @@ window.addEventListener('load', () => {
             }
             if (!!responsePrimary.data.service) {
                 let arrP = responsePrimary.data.service.split("\n")
-                arrP = arrP[1].split(" ")
+                let arrP = arrP[1].split(" ")
                 primaryPerformance.push(parseFloat(arrP[3]))
             } else {
                 primaryPerformance.push(0)
@@ -106,7 +106,7 @@ window.addEventListener('load', () => {
             }
             if (!!responseSecondary.data.service) {
                 let arrS = responseSecondary.data.service.split("\n")
-                arrS = arrS[1].split(" ")
+                let arrS = arrS[1].split(" ")
                 secondaryPerformance.push(parseFloat(arrS[3]))
             } else {
                 secondaryPerformance.push(0)
