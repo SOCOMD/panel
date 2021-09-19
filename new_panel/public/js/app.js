@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 window.addEventListener('load', () => {
     const el = $('#app');
     var core = {};
