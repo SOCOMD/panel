@@ -87,7 +87,7 @@ app.post('/api/serverState', async(req, res) => {
 
                         res.send({
                             status: "starting...",
-                            error: error,
+                            error: stdout,
                             map: "",
                             raw: { game: "" },
                             players: []
