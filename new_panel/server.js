@@ -218,15 +218,6 @@ async function runCMD(req, res, action) {
                 let sp = spawn(command, [''], {
                     detached: true
                 });
-                sp.on('error', (err) => {
-                    res.send({
-                        status: "Offline",
-                        error: err,
-                        map: "",
-                        raw: { game: "" },
-                        players: []
-                    });
-                });
 
                 grep.stdout.on('data', (data) => {
                     sp.send({ response: "success" });
