@@ -71,7 +71,6 @@ app.post('/api/serverState', async(req, res) => {
                 console.log(data)
 
                 exec(`ps u ${data}`, (error, stdout, stderr) => {
-                    res.setHeader('Content-Type', 'application/json');
                     if (error) {
                         console.log(`error: ${error.message}`);
                         error["repsonse"] = error.message;
@@ -81,7 +80,6 @@ app.post('/api/serverState', async(req, res) => {
                         error["repsonse"] = stderr;
                     }
                     console.log(stdout)
-                    res.send({ status: "Starting...", error: error, map: "", raw: { game: "" }, players: [] });
                 });
 
                 res.send({
