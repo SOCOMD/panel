@@ -5,7 +5,7 @@ const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const Gamedig = require('gamedig');
-const { exec } = require("child_process");
+const { exec, spawn } = require("child_process");
 const { lookpath } = require('lookpath');
 let jsonData = require(`${__dirname}/public/json/core.json`);
 
@@ -215,19 +215,23 @@ async function runCMD(req, res, action) {
             console.log(command)
                 // res.send({ response: "success", command: command });
             try {
-                exec(command, (error, stdout, stderr) => {
-                    if (error) {
-                        console.log(`error: ${error.message}`);
-                        error["repsonse"] = error.message;
-                        errorHandler(error, req, res);
-                    }
-                    if (stderr) {
-                        console.log(`stderr: ${stderr}`);
-                        error["repsonse"] = stderr;
-                        errorHandler(error, req, res);
-                    }
-                    console.log(`stdout: ${stdout}`);
-                    res.send({ response: "success" });
+                let sp = spawn(command, [''], {
+                    detached: true
+                });
+                sp.on('error', (err) => {
+                    error["repsonse"] = err.message;
+
+                    res.send({
+                        status: "Offline",
+                        error: error,
+                        map: "",
+                        raw: { game: "" },
+                        players: []
+                    });
+                });
+
+                grep.stdout.on('data', (data) => {
+                    sp.send({ response: "success" });
                 });
             } catch (error) {
                 errorHandler(error, req, res);
