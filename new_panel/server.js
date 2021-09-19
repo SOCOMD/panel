@@ -217,7 +217,7 @@ async function runCMD(req, res, action) {
             try {
                 var child = spawn(command, [], {
                     detached: true,
-                    stdio: ['ignore', out, err]
+                    stdio: ['ignore']
                 });
                 child.on("error", (error) => {
                     console.log(error)
