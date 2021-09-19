@@ -15,7 +15,7 @@ const port = 3131;
 
 const primaryServerModsFile = "/srv/games/servers/arma3_common/SOCOMD_mods.load";
 const secondaryServerModsFile = "/srv/games/servers/arma3_common/SECONDARY_mods.load";
-const mainCMD = "socomd-server-win";
+const mainCMD = "/home/gameserver/.local/bin/socomd-server-win";
 const startCMD = mainCMD + " start ";
 const stopCMD = mainCMD + " stop ";
 const primaryName = "SOCOMD";
