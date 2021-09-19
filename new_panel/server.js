@@ -17,8 +17,8 @@ const primaryServerModsFile = "/srv/games/arma3/common/SOCOMD_mods.load";
 const secondaryServerModsFile = "/srv/games/arma3/common/SECONDARY_mods.load";
 const pidFilePath = "/home/gameserver/.local/";
 const mainCMD = "socomd-server-win";
-const startCMD = mainCMD + " start ";
-const stopCMD = mainCMD + " stop ";
+const startCMD = "start";
+const stopCMD = "stop";
 const primaryName = "SOCOMD";
 const secondaryName = "SECONDARY";
 // Set public folder as root
@@ -156,6 +156,7 @@ async function runCMD(req, res, action) {
             var command = mainCMD;
             var file = "";
             var fileText = "";
+            var server = "";
             switch (action) {
                 case "on":
                     command = startCMD;
@@ -171,13 +172,13 @@ async function runCMD(req, res, action) {
             }
             switch (req.body.server) {
                 case "Primary Server":
-                    command = command + primaryName;
+                    server = primaryName;
                     if (action == "on") {
                         file = primaryServerModsFile;
                     };
                     break;
                 case "Secondary Server":
-                    command = command + secondaryName;
+                    server = secondaryName;
                     if (action == "on") {
                         file = secondaryServerModsFile;
                     }
@@ -215,7 +216,7 @@ async function runCMD(req, res, action) {
             console.log(command)
                 // res.send({ response: "success", command: command });
             try {
-                var child = spawn(command, [], {
+                var child = spawn(mainCMD, [command, server], {
                     detached: true,
                     stdio: ['ignore']
                 });
