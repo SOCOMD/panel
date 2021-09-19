@@ -224,10 +224,7 @@ async function runCMD(req, res, action) {
                     console.log(error)
                     res.send({ response: "error", error: error });
                 })
-                child.stdout.on('data', (data) => {
-                    res.send({ response: "success" });
-                });
-
+                res.send({ response: "success" });
                 child.unref()
             } catch (error) {
                 errorHandler(error, req, res);
