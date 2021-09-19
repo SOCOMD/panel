@@ -82,7 +82,7 @@ async function runCMD(req, res, action) {
         if (p) {
             var command = mainCMD;
             var file = "";
-            // var fileText = "";
+            var fileText = "";
             switch (action) {
                 case "on":
                     command = command + startCMD;
