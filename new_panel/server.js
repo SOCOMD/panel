@@ -9,7 +9,7 @@ let jsonData = require(`${__dirname}/public/json/core.json`);
 
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3131;
 
 const primaryServerModsFile = "/srv/games/servers/arma3_common/SOCOMD_mods.load";
 const secondaryServerModsFile = "/srv/games/servers/arma3_common/SECONDARY_mods.load";
