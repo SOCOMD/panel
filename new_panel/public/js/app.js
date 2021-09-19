@@ -78,8 +78,11 @@ window.addEventListener('load', () => {
             const responseSecondary = await api.post('/serverState', { port: 2402 });
             // Display Rates Table
             var { statusPrimary, mapPrimary, missionPrimary, playersPrimary, playerCountPrimary } = { statusPrimary: responsePrimary.data.status, mapPrimary: responsePrimary.data.map, missionPrimary: responsePrimary.data.raw.game, playersPrimary: responsePrimary.data.players, playerCountPrimary: responsePrimary.data.players.length };
-
+            let arrP = responsePrimary.data.service.split("\n")
+            arrP = arrP[1].split(" ")
             var { statusSecondary, mapSecondary, missionSecondary, playersSecondary, playerCountSecondary } = { statusSecondary: responseSecondary.data.status, mapSecondary: responseSecondary.data.map, missionSecondary: responseSecondary.data.raw.game, playersSecondary: responseSecondary.data.players, playerCountSecondary: responseSecondary.data.players.length };
+            let arrS = responseSecondary.data.service.split("\n")
+            arrS = arrS[1].split(" ")
             var servers = {
                 "Primary": {
                     "status": statusPrimary,
@@ -87,7 +90,7 @@ window.addEventListener('load', () => {
                     "mission": missionPrimary,
                     "players": playersPrimary,
                     "playerCount": playerCountPrimary,
-                    "service": responsePrimary.data.service
+                    "cpu": arrP[3]
                 },
                 "Secondary": {
                     "status": statusSecondary,
@@ -95,7 +98,7 @@ window.addEventListener('load', () => {
                     "mission": missionSecondary,
                     "players": playersSecondary,
                     "playerCount": playerCountSecondary,
-                    "service": responseSecondary.data.service
+                    "cpu": arrS[3]
                 },
             };
             html = serverTemplate({ servers: servers });
