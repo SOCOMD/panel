@@ -81,85 +81,85 @@ app.post('/api/stopServer', async(req, res) => {
 async function runCMD(req, res, action) {
     if (!!req.body.server) {
         const p = await lookpath(mainCMD);
-        // if (p) {
-        var command = mainCMD;
-        var file = "";
-        var fileText = "";
-        switch (action) {
-            case "on":
-                command = startCMD;
-                break;
-            case "off":
-                command = stopCMD;
-                file = "";
-                break;
-            default:
-                command = stopCMD;
-                file = "";
-                break;
-        }
-        switch (req.body.server) {
-            case "Primary Server":
-                command = command + primaryName;
-                file = primaryServerModsFile;
-                break;
-            case "Secondary Server":
-                command = command + secondaryName;
-                file = secondaryServerModsFile;
-                break;
-        }
-        if (file !== "") {
-            try {
+        if (p) {
+            var command = mainCMD;
+            var file = "";
+            var fileText = "";
+            switch (action) {
+                case "on":
+                    command = startCMD;
+                    break;
+                case "off":
+                    command = stopCMD;
+                    file = "";
+                    break;
+                default:
+                    command = stopCMD;
+                    file = "";
+                    break;
+            }
+            switch (req.body.server) {
+                case "Primary Server":
+                    command = command + primaryName;
+                    file = primaryServerModsFile;
+                    break;
+                case "Secondary Server":
+                    command = command + secondaryName;
+                    file = secondaryServerModsFile;
+                    break;
+            }
+            if (file !== "") {
+                try {
 
-                fs.readFile(`${__dirname}/public/json/core.json`, function(err, data) {
-                    if (err) throw err;
-                    var jsonData = JSON.parse(data)
-                    for (mod of jsonData) {
-                        fileText = fileText + mod.path + "\n";
-                    };
-
-                    if (req.body.extras.length > 0) {
-
-                        req.body.extras.forEach(mod => {
-                            fileText = fileText + mod + "\n";
-                        });
-                    }
-                    console.log(fileText)
-                    fs.writeFile(file, JSON.stringify(fileText), (err) => {
+                    fs.readFile(`${__dirname}/public/json/core.json`, function(err, data) {
                         if (err) throw err;
-                        console.log('Data written to file');
+                        var jsonData = JSON.parse(data)
+                        for (mod of jsonData) {
+                            fileText = fileText + mod.path + "\n";
+                        };
+
+                        if (req.body.extras.length > 0) {
+
+                            req.body.extras.forEach(mod => {
+                                fileText = fileText + mod + "\n";
+                            });
+                        }
+                        console.log(fileText)
+                        fs.writeFile(file, JSON.stringify(fileText), (err) => {
+                            if (err) throw err;
+                            console.log('Data written to file');
+                        });
                     });
+                } catch (error) {
+                    errorHandler(error, req, res);
+                }
+            }
+            console.log(command)
+                // res.send({ response: "success", command: command });
+            try {
+                exec(command, (error, stdout, stderr) => {
+                    if (error) {
+                        console.log(`error: ${error.message}`);
+                        errorHandler(error, req, res);
+                    }
+                    if (stderr) {
+                        console.log(`stderr: ${stderr}`);
+                        errorHandler(error, req, res);
+                    }
+                    console.log(`stdout: ${stdout}`);
+                    res.send({ response: "success" });
                 });
             } catch (error) {
                 errorHandler(error, req, res);
             }
-        }
-        console.log(command)
-            // res.send({ response: "success", command: command });
-        try {
-            exec(command, (error, stdout, stderr) => {
-                if (error) {
-                    console.log(`error: ${error.message}`);
-                    errorHandler(error, req, res);
-                }
-                if (stderr) {
-                    console.log(`stderr: ${stderr}`);
-                    errorHandler(error, req, res);
-                }
-                console.log(`stdout: ${stdout}`);
-                res.send({ response: "success" });
-            });
-        } catch (error) {
-            errorHandler(error, req, res);
+        } else {
+            console.log(`CM02: Action does not exist on this server: ${mainCMD}`)
+            res.send({ error: { message: `CM02: Action does not exist on this server: ${mainCMD}` } });
         }
     } else {
-        console.log(`CM02: Action does not exist on this server: ${mainCMD}`)
-        res.send({ error: { message: `CM02: Action does not exist on this server: ${mainCMD}` } });
+        console.log("CM01: No server parameter")
+        res.send({ error: { message: "CM01: No server parameter" } });
     }
-} else {
-    console.log("CM01: No server parameter")
-    res.send({ error: { message: "CM01: No server parameter" } });
-}
 }
 // Redirect all traffic to index.html
 app.use((req, res) => res.sendFile(`${__dirname}/public/index.html`));
