@@ -37,10 +37,10 @@
         <script id="server-info-partial" type="text/x-handlebars-template">
             <div class="ui divided horizontal list">
                 <div class="item">
-                    <i class="cog icon"></i>
-                    <div class="content">
+                    <i class="{{#ifEquals status 'Online'}} green {{/ifEquals}}  {{#ifEquals status 'Offline'}} red {{/ifEquals}} cog icon"></i>
+                    <div class=" content">
                         <div class="ui sub header">Status</div>
-                        <span>{{status}}</span>
+                        <span style="{{#ifEquals status 'Online'}} color:green {{/ifEquals}} {{#ifEquals status 'Offline'}} color:red {{/ifEquals}}">{{status}}</span>
                     </div>
                 </div>
                 <div class="item">

@@ -65,7 +65,24 @@ app.post('/api/serverState', async(req, res) => {
             res.setHeader('Content-Type', 'application/json');
             res.send(state);
         }).catch((error) => {
-            res.send({ status: "Offline", error: error, map: "", raw: { game: "" }, players: [] });
+            let fileName = primaryName;
+            if (req.body.port === 2402) { fileName = secondaryName }
+            fs.readFile(`${pidFilePath}/${fileName}.pid`, function(err, data) {
+                console.log(data)
+                exec(`ps u ${data}`, (error, stdout, stderr) => {
+                    if (error) {
+                        console.log(`error: ${error.message}`);
+                        error["repsonse"] = error.message;
+                        errorHandler(error, req, res);
+                    }
+                    if (stderr) {
+                        console.log(`stderr: ${stderr}`);
+                        error["repsonse"] = stderr;
+                        errorHandler(error, req, res);
+                    }
+                    res.send({ status: "Offline", error: stdout, map: "", raw: { game: "" }, players: [] });
+                });
+            });
         });
     } catch (error) {
         errorHandler(error, req, res);
@@ -79,6 +96,7 @@ app.post('/api/startServer', async(req, res) => {
 app.post('/api/stopServer', async(req, res) => {
     runCMD(req, res, "off");
 });
+
 async function runCMD(req, res, action) {
     console.log(req)
     if (!!req.body.server) {
@@ -149,10 +167,12 @@ async function runCMD(req, res, action) {
                 exec(command, (error, stdout, stderr) => {
                     if (error) {
                         console.log(`error: ${error.message}`);
+                        error["repsonse"] = error.message;
                         errorHandler(error, req, res);
                     }
                     if (stderr) {
                         console.log(`stderr: ${stderr}`);
+                        error["repsonse"] = stderr;
                         errorHandler(error, req, res);
                     }
                     console.log(`stdout: ${stdout}`);
