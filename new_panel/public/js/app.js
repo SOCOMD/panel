@@ -87,7 +87,7 @@ window.addEventListener('load', () => {
                     "mission": missionPrimary,
                     "players": playersPrimary,
                     "playerCount": playerCountPrimary,
-                    "service": responsePrimary.body.service
+                    "service": responsePrimary.data.service
                 },
                 "Secondary": {
                     "status": statusSecondary,
@@ -95,7 +95,7 @@ window.addEventListener('load', () => {
                     "mission": missionSecondary,
                     "players": playersSecondary,
                     "playerCount": playerCountSecondary,
-                    "service": responseSecondary.body.service
+                    "service": responseSecondary.data.service
                 },
             };
             html = serverTemplate({ servers: servers });
@@ -112,7 +112,7 @@ window.addEventListener('load', () => {
             const response = await api.post('/serverState', { port: port });
             console.log(response.data)
             var { name, color, players, status, map, mission } = { name: name, color: "blue", players: response.data.players, status: response.data.status, map: response.data.map, mission: response.data.raw.game };
-            html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length });
+            html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length, service: response.data.service });
             el.html(html);
             $('.loading').removeClass('loading');
             $(".dropdown").dropdown();

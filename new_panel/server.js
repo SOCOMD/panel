@@ -61,7 +61,7 @@ app.post('/api/serverState', async(req, res) => {
         }).then((state) => {
             console.log(state);
             state["status"] = "Online";
-            state["error"] = "none";
+            state["error"] = "none bozo";
             let fileName = primaryName;
             if (req.body.port === 2402) { fileName = secondaryName }
             fs.readFile(`${pidFilePath}/${fileName}.pid`, function(err, data) {
@@ -81,6 +81,8 @@ app.post('/api/serverState', async(req, res) => {
                         });
                     } else {
                         state["service"] = stdout
+                        res.setHeader('Content-Type', 'application/json');
+                        res.send(state);
                     }
                     if (stderr) {
                         console.log(`stderr: ${stderr}`);
@@ -95,8 +97,6 @@ app.post('/api/serverState', async(req, res) => {
                     }
                     console.log(stdout)
                 });
-                res.setHeader('Content-Type', 'application/json');
-                res.send(state);
             });
         }).catch((error) => {
             let fileName = primaryName;
