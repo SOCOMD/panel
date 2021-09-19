@@ -221,10 +221,10 @@ async function runCMD(req, res, action) {
                 });
                 child.on("error", (error) => {
                     console.log(error)
-                    sp.send({ response: "error", error: error });
+                    res.send({ response: "error", error: error });
                 })
                 child.stdout.on('data', (data) => {
-                    sp.send({ response: "success" });
+                    res.send({ response: "success" });
                 });
 
                 child.unref()
