@@ -69,7 +69,9 @@ app.post('/api/serverState', async(req, res) => {
             if (req.body.port === 2402) { fileName = secondaryName }
             fs.readFile(`${pidFilePath}/${fileName}.pid`, function(err, data) {
                 console.log(data)
+
                 exec(`ps u ${data}`, (error, stdout, stderr) => {
+                    res.setHeader('Content-Type', 'application/json');
                     if (error) {
                         console.log(`error: ${error.message}`);
                         error["repsonse"] = error.message;
