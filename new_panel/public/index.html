@@ -142,7 +142,7 @@
                         <label for="logging">Enable Debug Logging</label>
                     </div>
                     <div class="item">
-                        <div class="ui button  {{#ifEquals status 'Online'}} disabled {{/ifEquals}}" id="turnOn" data="{{name}}" tabindex="0">
+                        <div class="ui button  {{#ifEquals status 'Online'}} disabled {{/ifEquals}}  {{#ifEquals status 'Starting...'}} disabled {{/ifEquals}}" id="turnOn" data="{{name}}" tabindex="0">
                             Turn On
                         </div>
                         <div class="ui button {{#ifEquals status 'Offline'}} disabled {{/ifEquals}}" id="turnOff" data="{{name}}" tabindex="1">
