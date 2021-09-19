@@ -115,9 +115,10 @@ window.addEventListener('load', () => {
             $('.loading').removeClass('loading');
             $(".dropdown").dropdown();
             $("#turnOn").on("click", async() => {
-                var selected = $("#extras-select").val()
+                var enableLogging = $("#logging").is(":checked");
+                var selected = $("#extras-select").val();
                 console.log()
-                let res = await api.post('/startServer', { server: name, extras: selected })
+                let res = await api.post('/startServer', { server: name, extras: selected, logging: enableLogging });
                 if (res.data.response === "success") {
                     handleDetailedInfo(name, port);
                     $('.message').addClass("positive").removeClass("negative").find(".header").text("Server has been started")

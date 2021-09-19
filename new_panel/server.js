@@ -15,6 +15,7 @@ const port = 3131;
 
 const primaryServerModsFile = "/srv/games/arma3/common/SOCOMD_mods.load";
 const secondaryServerModsFile = "/srv/games/arma3/common/SECONDARY_mods.load";
+const pidFilePath = "/home/gameserver/.local/";
 const mainCMD = "socomd-server-win";
 const startCMD = mainCMD + " start ";
 const stopCMD = mainCMD + " stop ";
@@ -79,6 +80,7 @@ app.post('/api/stopServer', async(req, res) => {
     runCMD(req, res, "off");
 });
 async function runCMD(req, res, action) {
+    console.log(req)
     if (!!req.body.server) {
         const p = await lookpath(mainCMD);
         if (p) {
@@ -101,12 +103,19 @@ async function runCMD(req, res, action) {
             switch (req.body.server) {
                 case "Primary Server":
                     command = command + primaryName;
-                    file = primaryServerModsFile;
+                    if (action == "on") {
+                        file = primaryServerModsFile;
+                    };
                     break;
                 case "Secondary Server":
                     command = command + secondaryName;
-                    file = secondaryServerModsFile;
+                    if (action == "on") {
+                        file = secondaryServerModsFile;
+                    }
                     break;
+            }
+            if (action == "on" && req.body.logging) {
+                command = command + "enableLogging";
             }
             if (file !== "") {
                 try {
