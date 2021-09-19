@@ -115,7 +115,7 @@ async function runCMD(req, res, action) {
                     break;
             }
             if (action == "on" && req.body.logging) {
-                command = command + "enableLogging";
+                command = command + " enableLogging";
             }
             if (file !== "") {
                 try {
