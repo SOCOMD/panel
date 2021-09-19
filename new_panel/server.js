@@ -125,7 +125,7 @@ async function runCMD(req, res, action) {
                             });
                         }
                         console.log(fileText)
-                        fs.writeFile(file, JSON.stringify(fileText), (err) => {
+                        fs.writeFile(file, fileText, (err) => {
                             if (err) throw err;
                             console.log('Data written to file');
                         });
