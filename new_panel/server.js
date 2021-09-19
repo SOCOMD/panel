@@ -215,11 +215,15 @@ async function runCMD(req, res, action) {
             console.log(command)
                 // res.send({ response: "success", command: command });
             try {
-                let sp = spawn(command, [''], {
-                    detached: true
+                var child = spawn(command, [], {
+                    detached: true,
+                    stdio: ['ignore', out, err]
                 });
-
-                grep.stdout.on('data', (data) => {
+                child.on("error", (error) => {
+                    console.log(error)
+                    sp.send({ response: "error" });
+                })
+                child.stdout.on('data', (data) => {
                     sp.send({ response: "success" });
                 });
             } catch (error) {
