@@ -219,12 +219,9 @@ async function runCMD(req, res, action) {
                     detached: true
                 });
                 sp.on('error', (err) => {
-                    let error = {};
-                    error["repsonse"] = err.message;
-
                     res.send({
                         status: "Offline",
-                        error: error,
+                        error: err,
                         map: "",
                         raw: { game: "" },
                         players: []
