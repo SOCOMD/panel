@@ -82,14 +82,14 @@ window.addEventListener('load', () => {
             if (!!responsePrimary.data.service) {
                 let arrP = responsePrimary.data.service.split("\n")
                 arrP = arrP[1].split(/[ ]+/)
-                cpuP = arrP[3];
+                cpuP = arrP[2];
             }
             var { statusSecondary, mapSecondary, missionSecondary, playersSecondary, playerCountSecondary } = { statusSecondary: responseSecondary.data.status, mapSecondary: responseSecondary.data.map, missionSecondary: responseSecondary.data.raw.game, playersSecondary: responseSecondary.data.players, playerCountSecondary: responseSecondary.data.players.length };
             let cpuS = "-";
             if (!!responseSecondary.data.service) {
                 let arrS = responseSecondary.data.service.split("\n")
                 arrS = arrS[1].split(/[ ]+/)
-                cpuS = arrS[3]
+                cpuS = arrS[2]
             }
             var servers = {
                 "Primary": {
@@ -127,7 +127,7 @@ window.addEventListener('load', () => {
             if (!!response.data.service) {
                 let arrS = response.data.service.split("\n")
                 arrS = arrS[1].split(/[ ]+/)
-                cpuS = arrS[3]
+                cpuS = arrS[2]
             }
             html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length, cpu: cpuS });
             el.html(html);
