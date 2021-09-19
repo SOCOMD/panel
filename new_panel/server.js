@@ -80,9 +80,22 @@ async function runCMD(req, res, action) {
     if (!!req.body.server) {
         const p = await lookpath(mainCMD);
         if (p) {
-            var command = '';
+            var command = mainCMD;
             var file = "";
             // var fileText = "";
+            switch (action) {
+                case "on":
+                    command = command + startCMD;
+                    break;
+                case "off":
+                    command = command + stopCMD;
+                    file = "";
+                    break;
+                default:
+                    command = command + stopCMD;
+                    file = "";
+                    break;
+            }
             switch (req.body.server) {
                 case "Primary Server":
                     command = command + primaryName;
@@ -91,19 +104,6 @@ async function runCMD(req, res, action) {
                 case "Secondary Server":
                     command = command + secondaryName;
                     file = secondaryServerModsFile;
-                    break;
-            }
-            switch (action) {
-                case "on":
-                    command = startCMD;
-                    break;
-                case "off":
-                    command = stopCMD;
-                    file = "";
-                    break;
-                default:
-                    command = stopCMD;
-                    file = "";
                     break;
             }
             if (file !== "") {
