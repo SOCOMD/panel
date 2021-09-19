@@ -77,9 +77,6 @@ app.post('/api/stopServer', async(req, res) => {
     runCMD(req, res, "off");
 });
 async function runCMD(req, res, action) {
-
-
-
     if (!!req.body.server) {
         const p = await lookpath(mainCMD);
         if (p) {
@@ -153,8 +150,8 @@ async function runCMD(req, res, action) {
                 errorHandler(error, req, res);
             }
         } else {
-            console.log("CM02: Action does not exist on this server")
-            res.send({ error: { message: "CM02: Action does not exist on this server" } });
+            console.log(`CM02: Action does not exist on this server: ${mainCMD}`)
+            res.send({ error: { message: `CM02: Action does not exist on this server: ${mainCMD}` } });
         }
     } else {
         console.log("CM01: No server parameter")

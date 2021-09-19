@@ -23,6 +23,7 @@
         "semantic-ui-css": "^2.3.1",
         "semantic-ui-dropdown": "^2.4.1",
         "semantic-ui-form": "^2.4.0",
+        "semantic-ui-message": "^2.3.1",
         "vanilla-router": "^1.2.6"
     }
 }
