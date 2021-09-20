@@ -52,7 +52,7 @@
 
         <!-- Partials -->
         <script id="server-info-partial" type="text/x-handlebars-template">
-            <div class="ui divided horizontal list">
+            <div class="ui divided horizontal list {{name}}">
                 <div class="item">
                     <i class="{{#ifEquals status 'Online'}} green {{/ifEquals}}  {{#ifEquals status 'Offline'}} red {{/ifEquals}} cog icon"></i>
                     <div class=" content">
@@ -64,28 +64,28 @@
                     <i class="map icon"></i>
                     <div class="content">
                         <div class="ui sub header">Map</div>
-                        <span>{{map}}</span>
+                        <span class="map-selection">{{map}}</span>
                     </div>
                 </div>
                 <div class="item">
                     <i class="calendar alternate outline icon"></i>
                     <div class="content">
                         <div class="ui sub header">Mssion</div>
-                        <span>{{mission}}</span>
+                        <span class="mission-selection">{{mission}}</span>
                     </div>
                 </div>
                 <div class="item">
                     <i class="user icon"></i>
                     <div class="content">
                         <div class="ui sub header">Player Count</div>
-                        <span>{{playerCount}}</span>
+                        <span class="player-count">{{playerCount}}</span>
                     </div>
                 </div>
                 <div class="item">
                     <i class="microchip icon"></i>
                     <div class="content">
                         <div class="ui sub header">CPU</div>
-                        <span>{{cpu}}%</span>
+                        <span class="cpu-usage">{{cpu}}%</span>
                     </div>
                 </div>
                 
