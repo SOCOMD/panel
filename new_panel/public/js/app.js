@@ -73,23 +73,33 @@ window.addEventListener('load', () => {
         let html = serverTemplate({ servers: { "Primary": {}, "Secondary": {} } }); // pass empty server objects to display structure on page load
         el.html(html);
         try {
+            const d = new Date();
+            var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            let offset = (9.5 * 60);
+            var nd = new Date(utc + (3600000*offset)).getMinutes()
             // Load Currency Rates
             const responsePrimary = await api.post('/serverState', { port: 2302 });
             const responseSecondary = await api.post('/serverState', { port: 2402 });
             // Display Rates Table
             var { statusPrimary, mapPrimary, missionPrimary, playersPrimary, playerCountPrimary } = { statusPrimary: responsePrimary.data.status, mapPrimary: responsePrimary.data.map, missionPrimary: responsePrimary.data.raw.game, playersPrimary: responsePrimary.data.players, playerCountPrimary: responsePrimary.data.players.length };
-            let cpu = "-";
+            let cpuP = "-";
+            let upTimeP = "-"
             if (!!responsePrimary.data.service) {
                 let arrP = responsePrimary.data.service.split("\n")
                 arrP = arrP[1].split(/[ ]+/)
                 cpuP = arrP[2];
+                let compTimeP = new Date(arrP[8]).getMinutes()
+                upTimeS = `${nd - compTimeP} minutes`
             }
             var { statusSecondary, mapSecondary, missionSecondary, playersSecondary, playerCountSecondary } = { statusSecondary: responseSecondary.data.status, mapSecondary: responseSecondary.data.map, missionSecondary: responseSecondary.data.raw.game, playersSecondary: responseSecondary.data.players, playerCountSecondary: responseSecondary.data.players.length };
             let cpuS = "-";
+            let upTimeS = "-";
             if (!!responseSecondary.data.service) {
                 let arrS = responseSecondary.data.service.split("\n")
                 arrS = arrS[1].split(/[ ]+/)
                 cpuS = arrS[2]
+                let compTimeS = new Date(arrS[8]).getMinutes()
+                upTimeS = `${nd - compTimeS} minutes`
             }
             var servers = {
                 "Primary": {
@@ -98,7 +108,8 @@ window.addEventListener('load', () => {
                     "mission": missionPrimary,
                     "players": playersPrimary,
                     "playerCount": playerCountPrimary,
-                    "cpu": cpuP
+                    "cpu": cpuP,
+                    "uptime":upTimeP
                 },
                 "Secondary": {
                     "status": statusSecondary,
@@ -106,7 +117,8 @@ window.addEventListener('load', () => {
                     "mission": missionSecondary,
                     "players": playersSecondary,
                     "playerCount": playerCountSecondary,
-                    "cpu": cpuS
+                    "cpu": cpuS,
+                    "uptime":upTimeS
                 },
             };
             html = serverTemplate({ servers: servers });
@@ -123,13 +135,19 @@ window.addEventListener('load', () => {
             const response = await api.post('/serverState', { port: port });
             console.log(response.data)
             var { name, color, players, status, map, mission } = { name: name, color: "blue", players: response.data.players, status: response.data.status, map: response.data.map, mission: response.data.raw.game };
-            let cpuS = "-";
+            const d = new Date();
+            var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            let offset = (9.5 * 60);
+            var nd = new Date(utc + (3600000*offset)).getMinutes()
+            let cpuS = "-",upTimeS = "-";
             if (!!response.data.service) {
                 let arrS = response.data.service.split("\n")
                 arrS = arrS[1].split(/[ ]+/)
                 cpuS = arrS[2]
+                let compTimeS = new Date(arrS[8]).getMinutes()
+                upTimeS = `${nd - compTimeS} minutes`
             }
-            html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length, cpu: cpuS });
+            html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length, cpu: cpuS, upTimeS });
             el.html(html);
             $('.loading').removeClass('loading');
             $(".dropdown").dropdown();
