@@ -73,10 +73,6 @@ window.addEventListener('load', () => {
         let html = serverTemplate({ servers: { "Primary": {}, "Secondary": {} } }); // pass empty server objects to display structure on page load
         el.html(html);
         try {
-            const d = new Date();
-            var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-            let offset = (9.5 * 60);
-            var nd = new Date(utc + (3600000*offset)).getMinutes()
             // Load Currency Rates
             const responsePrimary = await api.post('/serverState', { port: 2302 });
             const responseSecondary = await api.post('/serverState', { port: 2402 });
@@ -88,8 +84,7 @@ window.addEventListener('load', () => {
                 let arrP = responsePrimary.data.service.split("\n")
                 arrP = arrP[1].split(/[ ]+/)
                 cpuP = arrP[2];
-                let compTimeP = new Date(arrP[8]).getMinutes()
-                upTimeS = `${nd - compTimeP} minutes`
+                upTimeP = `Since ${arrP[8]} ACST`
             }
             var { statusSecondary, mapSecondary, missionSecondary, playersSecondary, playerCountSecondary } = { statusSecondary: responseSecondary.data.status, mapSecondary: responseSecondary.data.map, missionSecondary: responseSecondary.data.raw.game, playersSecondary: responseSecondary.data.players, playerCountSecondary: responseSecondary.data.players.length };
             let cpuS = "-";
@@ -98,8 +93,7 @@ window.addEventListener('load', () => {
                 let arrS = responseSecondary.data.service.split("\n")
                 arrS = arrS[1].split(/[ ]+/)
                 cpuS = arrS[2]
-                let compTimeS = new Date(arrS[8]).getMinutes()
-                upTimeS = `${nd - compTimeS} minutes`
+                upTimeS = `Since ${arrS[8]} ACST`
             }
             var servers = {
                 "Primary": {
@@ -135,17 +129,12 @@ window.addEventListener('load', () => {
             const response = await api.post('/serverState', { port: port });
             console.log(response.data)
             var { name, color, players, status, map, mission } = { name: name, color: "blue", players: response.data.players, status: response.data.status, map: response.data.map, mission: response.data.raw.game };
-            const d = new Date();
-            var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-            let offset = (9.5 * 60);
-            var nd = new Date(utc + (3600000*offset)).getMinutes()
             let cpuS = "-",upTimeS = "-";
             if (!!response.data.service) {
                 let arrS = response.data.service.split("\n")
                 arrS = arrS[1].split(/[ ]+/)
                 cpuS = arrS[2]
-                let compTimeS = new Date(arrS[8]).getMinutes()
-                upTimeS = `${nd - compTimeS} minutes`
+                upTimeS = `Since ${arrS[8]} ACST`
             }
             html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length, cpu: cpuS, upTimeS });
             el.html(html);
