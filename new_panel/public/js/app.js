@@ -150,14 +150,14 @@ window.addEventListener('load', () => {
             chartName = chartName.join(".");
             var ctx = $(`.${chartName}.chart`);
             let chartData = name == "Primary Server" ? cpuGraphP : cpuGraphS;
-            new Chart(ctx, {
-                type: 'line',
-                data: {datasets:[{
-                    data:chartData,
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                }]}
-            })
+            // new Chart(ctx, {
+            //     type: 'line',
+            //     data: {datasets:[{
+            //         data:chartData,
+            //         fill: false,
+            //         borderColor: 'rgb(75, 192, 192)',
+            //     }]}
+            // })
             $('.loading').removeClass('loading');
             $(".dropdown").dropdown();
             $("#turnOn").on("click", async() => {
