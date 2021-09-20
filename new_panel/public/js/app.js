@@ -152,7 +152,11 @@ window.addEventListener('load', () => {
             let chartData = name == "Primary Server" ? cpuGraphP : cpuGraphS;
             new Chart(ctx, {
                 type: 'line',
-                data: chartData
+                data: {datasets:[{
+                    data:chartData,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                }]}
             })
             $('.loading').removeClass('loading');
             $(".dropdown").dropdown();
