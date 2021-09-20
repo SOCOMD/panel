@@ -84,7 +84,7 @@ window.addEventListener('load', () => {
                 let arrP = responsePrimary.data.service.split("\n")
                 arrP = arrP[1].split(/[ ]+/)
                 cpuP = arrP[2];
-                upTimeP = `Since ${arrP[8]} ACST`
+                upTimeP = `Since ${arrP[8]} AEST`
             }
             var { statusSecondary, mapSecondary, missionSecondary, playersSecondary, playerCountSecondary } = { statusSecondary: responseSecondary.data.status, mapSecondary: responseSecondary.data.map, missionSecondary: responseSecondary.data.raw.game, playersSecondary: responseSecondary.data.players, playerCountSecondary: responseSecondary.data.players.length };
             let cpuS = "-";
@@ -93,7 +93,7 @@ window.addEventListener('load', () => {
                 let arrS = responseSecondary.data.service.split("\n")
                 arrS = arrS[1].split(/[ ]+/)
                 cpuS = arrS[2]
-                upTimeS = `Since ${arrS[8]} ACST`
+                upTimeS = `Since ${arrS[8]} AEST`
             }
             var servers = {
                 "Primary": {
@@ -134,9 +134,9 @@ window.addEventListener('load', () => {
                 let arrS = response.data.service.split("\n")
                 arrS = arrS[1].split(/[ ]+/)
                 cpuS = arrS[2]
-                upTimeS = `Since ${arrS[8]} ACST`
+                upTimeS = `Since ${arrS[8]} AEST`
             }
-            html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length, cpu: cpuS, upTimeS });
+            html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length, cpu: cpuS, uptime: upTimeS });
             el.html(html);
             $('.loading').removeClass('loading');
             $(".dropdown").dropdown();
