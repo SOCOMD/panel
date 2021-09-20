@@ -146,6 +146,14 @@ window.addEventListener('load', () => {
             }
             html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length, cpu: cpuS, uptime: upTimeS });
             el.html(html);
+            let chartName = name.split(" ");
+            chartName = chartName.join(".");
+            var ctx = $(`.${chartName}.chart`);
+            let chartData = name == "Primary Server" ? cpuGraphP : cpuGraphS;
+            new Chart(ctx, {
+                type: 'line',
+                data: chartData
+            })
             $('.loading').removeClass('loading');
             $(".dropdown").dropdown();
             $("#turnOn").on("click", async() => {
