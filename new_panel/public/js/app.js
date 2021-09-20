@@ -221,21 +221,21 @@ window.addEventListener('load', () => {
                 case "Online" : {
                     if(!$(".Primary.Server .status-section .cog.icon").hasClass("green")){
                         $(".Primary.Server .status-section .cog.icon").removeClass("red").addClass("green")
-                        $(".Primary.Server .status-section .status-text").style("color","green")
+                        $(".Primary.Server .status-section .status-text").css("color","green")
                     }
                 }; break;
                 
                 case "Offline" : {
                     if(!$(".Primary.Server .status-section .cog.icon").hasClass("red")){
                         $(".Primary.Server .status-section .cog.icon").addClass("red").removeClass("green")
-                        $(".Primary.Server .status-section .status-text").style("color","red")
+                        $(".Primary.Server .status-section .status-text").css("color","red")
                     }
                 }; break;
                 
                 case "Starting..." : {
                     if($(".Primary.Server .status-section .cog.icon").hasClass("green") || $(".Primary.Server .status-section .cog.icon").hasClass("red")){
                         $(".Primary.Server .status-section .cog.icon").removeClass("red").removeClass("green")
-                        $(".Primary.Server .status-section .status-text").style("color","")
+                        $(".Primary.Server .status-section .status-text").css("color","")
                     }
                 }; break;
             }
@@ -266,21 +266,21 @@ window.addEventListener('load', () => {
                 case "Online" : {
                     if(!$(".Secondary.Server .status-section .cog.icon").hasClass("green")){
                         $(".Secondary.Server .status-section .cog.icon").removeClass("red").addClass("green")
-                        $(".Secondary.Server .status-section .status-text").style("color","green")
+                        $(".Secondary.Server .status-section .status-text").css("color","green")
                     }
                 }; break;
                 
                 case "Offline" : {
                     if(!$(".Secondary.Server .status-section .cog.icon").hasClass("red")){
                         $(".Secondary.Server .status-section .cog.icon").addClass("red").removeClass("green")
-                        $(".Secondary.Server .status-section .status-text").style("color","red")
+                        $(".Secondary.Server .status-section .status-text").css("color","red")
                     }
                 }; break;
                 
                 case "Starting..." : {
                     if($(".Secondary.Server .status-section .cog.icon").hasClass("green") || $(".Secondary.Server .status-section .cog.icon").hasClass("red")){
                         $(".Secondary.Server .status-section .cog.icon").removeClass("red").removeClass("green")
-                        $(".Secondary.Server .status-section .status-text").style("color","")
+                        $(".Secondary.Server .status-section .status-text").css("color","")
                     }
                 }; break;
             }
