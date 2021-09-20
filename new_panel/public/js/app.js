@@ -217,6 +217,28 @@ window.addEventListener('load', () => {
                 cpuP = parseFloat(arrP[2]);
                 $(".Primary.Server .cpu-usage").text(`${cpuP}%`)
             }
+            switch(statusPrimary){
+                case "Online" : {
+                    if(!$(".Primary.Server .status-section .cog.icon").hasClass("green")){
+                        $(".Primary.Server .status-section .cog.icon").removeClass("red").addClass("green")
+                        $(".Primary.Server .status-section .status-text").style("color","green")
+                    }
+                }; break;
+                
+                case "Offline" : {
+                    if(!$(".Primary.Server .status-section .cog.icon").hasClass("red")){
+                        $(".Primary.Server .status-section .cog.icon").addClass("red").removeClass("green")
+                        $(".Primary.Server .status-section .status-text").style("color","red")
+                    }
+                }; break;
+                
+                case "Starting..." : {
+                    if($(".Primary.Server .status-section .cog.icon").hasClass("green") || $(".Primary.Server .status-section .cog.icon").hasClass("red")){
+                        $(".Primary.Server .status-section .cog.icon").removeClass("red").removeClass("green")
+                        $(".Primary.Server .status-section .status-text").style("color","")
+                    }
+                }; break;
+            }
             $(".Primary.Server .map-selection").text(mapPrimary)
             $(".Primary.Server .mission-selection").text(missionPrimary)
             $(".Primary.Server .player-count").text(playerCountPrimary)
@@ -239,6 +261,28 @@ window.addEventListener('load', () => {
                 arrS = arrS[1].split(/[ ]+/)
                 cpuS = parseFloat(arrS[2])
                 $(".Secondary.Server .cpu-usage").text(`${cpuS}%`)
+            }
+            switch(statusSecondary){
+                case "Online" : {
+                    if(!$(".Secondary.Server .status-section .cog.icon").hasClass("green")){
+                        $(".Secondary.Server .status-section .cog.icon").removeClass("red").addClass("green")
+                        $(".Secondary.Server .status-section .status-text").style("color","green")
+                    }
+                }; break;
+                
+                case "Offline" : {
+                    if(!$(".Secondary.Server .status-section .cog.icon").hasClass("red")){
+                        $(".Secondary.Server .status-section .cog.icon").addClass("red").removeClass("green")
+                        $(".Secondary.Server .status-section .status-text").style("color","red")
+                    }
+                }; break;
+                
+                case "Starting..." : {
+                    if($(".Secondary.Server .status-section .cog.icon").hasClass("green") || $(".Secondary.Server .status-section .cog.icon").hasClass("red")){
+                        $(".Secondary.Server .status-section .cog.icon").removeClass("red").removeClass("green")
+                        $(".Secondary.Server .status-section .status-text").style("color","")
+                    }
+                }; break;
             }
             $(".Secondary.Server .map-selection").text(mapSecondary)
             $(".Secondary.Server .mission-selection").text(missionSecondary)

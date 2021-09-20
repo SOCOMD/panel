@@ -53,11 +53,11 @@
         <!-- Partials -->
         <script id="server-info-partial" type="text/x-handlebars-template">
             <div class="ui divided horizontal list {{name}}">
-                <div class="item">
+                <div class="item status-section">
                     <i class="{{#ifEquals status 'Online'}} green {{/ifEquals}}  {{#ifEquals status 'Offline'}} red {{/ifEquals}} cog icon"></i>
                     <div class=" content">
                         <div class="ui sub header">Status</div>
-                        <span style="{{#ifEquals status 'Online'}} color:green {{/ifEquals}} {{#ifEquals status 'Offline'}} color:red {{/ifEquals}}">{{status}}</span>
+                        <span class="status-text" style="{{#ifEquals status 'Online'}} color:green {{/ifEquals}} {{#ifEquals status 'Offline'}} color:red {{/ifEquals}}">{{status}}</span>
                     </div>
                 </div>
                 <div class="item">
