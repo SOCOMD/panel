@@ -12,6 +12,12 @@ window.addEventListener('load', () => {
     var currentServer = "Primary Server";
     var currentPort = 2302;
     var timer = null;
+    var infoUpdateTimer = null;
+    var cpuGraphP = [];
+    var cpuGraphS = [];
+    
+    var playerCountP = [];
+    var playerCountS = [];
     // Compile Handlebar Templates
     const errorTemplate = Handlebars.compile($('#error-template').html());
     const serverDetailTemplate = Handlebars.compile($('#server-detailed-template').html());
@@ -97,6 +103,7 @@ window.addEventListener('load', () => {
             }
             var servers = {
                 "Primary": {
+                    "name":"Primary Server",
                     "status": statusPrimary,
                     "map": mapPrimary,
                     "mission": missionPrimary,
@@ -106,6 +113,7 @@ window.addEventListener('load', () => {
                     "uptime":upTimeP
                 },
                 "Secondary": {
+                    "name":"Secondary Server",
                     "status": statusSecondary,
                     "map": mapSecondary,
                     "mission": missionSecondary,
@@ -185,13 +193,80 @@ window.addEventListener('load', () => {
         }
     }
 
-    async function handleInfoUpdate() {
+    async function handleInfoRefresh() {
         if (currentRoute == "/") {
             handleOverviewInfo()
         } else {
             handleDetailedInfo(currentServer, currentPort)
         }
     }
+
+    // handle data retrieval loop. updates once every 5 seconds
+    async function handleInfoUpdate(){
+        // update immediately, then loop
+        try {
+            // Load Currency Rates
+            const responsePrimary = await api.post('/serverState', { port: 2302 });
+            const responseSecondary = await api.post('/serverState', { port: 2402 });
+            // Display Rates Table
+            var { statusPrimary, mapPrimary, missionPrimary, playersPrimary, playerCountPrimary } = { statusPrimary: responsePrimary.data.status, mapPrimary: responsePrimary.data.map, missionPrimary: responsePrimary.data.raw.game, playersPrimary: responsePrimary.data.players, playerCountPrimary: responsePrimary.data.players.length };
+            let cpuP = 0;
+            if (!!responsePrimary.data.service) {
+                let arrP = responsePrimary.data.service.split("\n")
+                arrP = arrP[1].split(/[ ]+/)
+                cpuP = parseFloat(arrP[2]);
+                $(".Primary.Server .cpu-usage").text(`${cpuP}%`)
+            }
+            $(".Primary.Server .map-selection").text(mapPrimary)
+            $(".Primary.Server .mission-selection").text(missionPrimary)
+            $(".Primary.Server .player-count").text(playerCountPrimary)
+            // set last 30 updates
+            if(cpuGraphP.length > 30) {
+                cpuGraphP.splice(0,1);
+            }
+            cpuGraphP.push(cpuP)
+            
+            if(playerCountP.length > 30) {
+                playerCountP.splice(0,1);
+            }
+            playerCountP.push(playerCountPrimary)
+
+            // handle secondary
+            var { statusSecondary, mapSecondary, missionSecondary, playersSecondary, playerCountSecondary } = { statusSecondary: responseSecondary.data.status, mapSecondary: responseSecondary.data.map, missionSecondary: responseSecondary.data.raw.game, playersSecondary: responseSecondary.data.players, playerCountSecondary: responseSecondary.data.players.length };
+            let cpuS = 0;
+            if (!!responseSecondary.data.service) {
+                let arrS = responseSecondary.data.service.split("\n")
+                arrS = arrS[1].split(/[ ]+/)
+                cpuS = parseFloat(arrS[2])
+                $(".Secondary.Server .cpu-usage").text(`${cpuS}%`)
+            }
+            $(".Secondary.Server .map-selection").text(mapSecondary)
+            $(".Secondary.Server .mission-selection").text(missionSecondary)
+            $(".Secondary.Server .player-count").text(playerCountSecondary)
+            
+            // set last 30 updates
+            if(cpuGraphS.length > 30) {
+                cpuGraphS.splice(0,1);
+            }
+            cpuGraphS.push(cpuS)
+            
+            if(playerCountS.length > 30) {
+                playerCountS.splice(0,1);
+            }
+            console.log("cached data",cpuGraphP, playerCountP,cpuGraphS,playerCountS);
+            playerCountS.push(playerCountSecondary)
+        } catch(error){
+            console.error(error)
+        }
+        
+        if (infoUpdateTimer != null) {
+            window.clearTimeout(infoUpdateTimer);
+        }
+        infoUpdateTimer = window.setTimeout(() => {
+            handleInfoUpdate()
+        }, 5000);
+    }
+    handleInfoUpdate()
     router.navigateTo(window.location.pathname);
 
     // Highlight Active Menu on Load
@@ -200,7 +275,7 @@ window.addEventListener('load', () => {
 
     // handling interactions
     $("#refresh").on("click", (event) => {
-        handleInfoUpdate();
+        handleInfoRefresh();
     })
     $('a').on('click', (event) => {
         // Block page load
