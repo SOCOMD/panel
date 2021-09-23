@@ -67,7 +67,7 @@ app.post('/api/serverState', async(req, res) => {
             fs.readFile(`${pidFilePath}/${fileName}.pid`, function(err, data) {
                 console.log(data)
 
-                exec(`top -b -n1 ${data}`, (error, stdout, stderr) => {
+                exec(`ps u ${data}`, (error, stdout, stderr) => {
                     if (error) {
                         console.log(`error: ${error.message}`);
                         error["repsonse"] = error.message;
@@ -87,16 +87,16 @@ app.post('/api/serverState', async(req, res) => {
                     if (stderr) {
                         console.log(`stderr: ${stderr}`);
                         error["repsonse"] = stderr;
+                        res.send({
+                            status: "Offline",
+                            error: error,
+                            map: "",
+                            raw: { game: "" },
+                            players: []
+                        });
                     }
                     console.log(stdout)
                 });
-            });
-            res.send({
-                status: "Offline",
-                error: error,
-                map: "",
-                raw: { game: "" },
-                players: []
             });
         }).catch((error) => {
             let fileName = primaryName;
@@ -104,7 +104,7 @@ app.post('/api/serverState', async(req, res) => {
             fs.readFile(`${pidFilePath}/${fileName}.pid`, function(err, data) {
                 console.log(data)
 
-                exec(`top -b -n1 ${data}`, (error, stdout, stderr) => {
+                exec(`ps u ${data}`, (error, stdout, stderr) => {
                     if (error) {
                         console.log(`error: ${error.message}`);
                         error["repsonse"] = error.message;
