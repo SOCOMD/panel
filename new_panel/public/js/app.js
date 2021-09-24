@@ -91,7 +91,6 @@ window.addEventListener('load', () => {
                 arrP = arrP[7].split(/[ ]+/)
                 cpuP = arrP[9]
                 upTimeP = arrP[11]
-                upTimeP = upTimeP.substring(0, upTimeP.length - 3);
             }
             var { statusSecondary, mapSecondary, missionSecondary, playersSecondary, playerCountSecondary } = { statusSecondary: responseSecondary.data.status, mapSecondary: responseSecondary.data.map, missionSecondary: responseSecondary.data.raw.game, playersSecondary: responseSecondary.data.players, playerCountSecondary: responseSecondary.data.players.length };
             let cpuS = "-";
@@ -101,7 +100,6 @@ window.addEventListener('load', () => {
                 arrS = arrS[7].split(/[ ]+/)
                 cpuS = arrS[9]
                 upTimeS = arrS[11]
-                upTimeS = upTimeS.substring(0, upTimeS.length - 3);
             }
             var servers = {
                 "Primary": {
@@ -146,7 +144,6 @@ window.addEventListener('load', () => {
                 arrS = arrS[7].split(/[ ]+/)
                 cpuS = arrS[9]
                 upTimeS = arrS[11]
-                upTimeS = upTimeS.substring(0, upTimeS.length - 3);
             }
             html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length, cpu: cpuS, uptime: upTimeS });
             el.html(html);
@@ -227,12 +224,12 @@ window.addEventListener('load', () => {
             // Display Rates Table
             var { statusPrimary, mapPrimary, missionPrimary, playersPrimary, playerCountPrimary } = { statusPrimary: responsePrimary.data.status, mapPrimary: responsePrimary.data.map, missionPrimary: responsePrimary.data.raw.game, playersPrimary: responsePrimary.data.players, playerCountPrimary: responsePrimary.data.players.length };
             let cpuP = 0;
+            let timeP = "0:0";
             if (!!responsePrimary.data.service) {
                 let arrP = responsePrimary.data.service.split("\n")
                 arrP = arrP[7].split(/[ ]+/)
                 cpuP = parseFloat(arrP[9]);
-                let timeP = arrP[11];
-                timeP = timeP.substring(0, timeP.length - 3);
+                timeP = arrP[11];
                 $(".Primary.Server .up-time").text(`${timeP}`)
                 $(".Primary.Server .cpu-usage").text(`${cpuP}%`)
             }
@@ -281,12 +278,12 @@ window.addEventListener('load', () => {
             // handle secondary
             var { statusSecondary, mapSecondary, missionSecondary, playersSecondary, playerCountSecondary } = { statusSecondary: responseSecondary.data.status, mapSecondary: responseSecondary.data.map, missionSecondary: responseSecondary.data.raw.game, playersSecondary: responseSecondary.data.players, playerCountSecondary: responseSecondary.data.players.length };
             let cpuS = 0;
+            let timeS = "0:0";
             if (!!responseSecondary.data.service) {
                 let arrS = responseSecondary.data.service.split("\n")
                 arrS = arrS[7].split(/[ ]+/)
                 cpuS = parseFloat(arrS[9])
                 timeS = arrS[11];
-                timeS = timeS.substring(0, timeS.length - 3);
                 $(".Secondary.Server .up-time").text(`${timeS}`)
                 $(".Secondary.Server .cpu-usage").text(`${cpuS}%`)
             }
