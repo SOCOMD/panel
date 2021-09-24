@@ -231,7 +231,7 @@ window.addEventListener('load', () => {
                 let arrP = responsePrimary.data.service.split("\n")
                 arrP = arrP[7].split(/[ ]+/)
                 cpuP = parseFloat(arrP[9]);
-                timeP = arrP[11];
+                let timeP = arrP[11];
                 timeP = timeP.substring(0, timeP.length - 3);
                 $(".Primary.Server .up-time").text(`${timeP}`)
                 $(".Primary.Server .cpu-usage").text(`${cpuP}%`)
