@@ -88,9 +88,9 @@ window.addEventListener('load', () => {
             let upTimeP = "-"
             if (!!responsePrimary.data.service) {
                 let arrP = responsePrimary.data.service.split("\n")
-                arrP = arrP[7].split(/[ ]+/)
-                cpuP = arrP[9]
-                upTimeP = `${arrP[11]}`
+                arrP = arrS[7].split(/[ ]+/)
+                cpuP = arrS[9]
+                upTimeP = `${arrS[11]}`
             }
             var { statusSecondary, mapSecondary, missionSecondary, playersSecondary, playerCountSecondary } = { statusSecondary: responseSecondary.data.status, mapSecondary: responseSecondary.data.map, missionSecondary: responseSecondary.data.raw.game, playersSecondary: responseSecondary.data.players, playerCountSecondary: responseSecondary.data.players.length };
             let cpuS = "-";
