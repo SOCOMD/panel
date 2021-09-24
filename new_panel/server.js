@@ -67,7 +67,7 @@ app.post('/api/serverState', async(req, res) => {
             fs.readFile(`${pidFilePath}/${fileName}.pid`, function(err, data) {
                 console.log(data)
 
-                exec(`top -n 1 -b -p ${data}`, (error, stdout, stderr) => {
+                exec(`ps u ${data}`, (error, stdout, stderr) => {
                     if (error) {
                         console.log(`error: ${error.message}`);
                         error["repsonse"] = error.message;
@@ -104,7 +104,7 @@ app.post('/api/serverState', async(req, res) => {
             fs.readFile(`${pidFilePath}/${fileName}.pid`, function(err, data) {
                 console.log(data)
 
-                exec(`top -n 1 -b -p ${data}`, (error, stdout, stderr) => {
+                exec(`ps u ${data}`, (error, stdout, stderr) => {
                     if (error) {
                         console.log(`error: ${error.message}`);
                         error["repsonse"] = error.message;
