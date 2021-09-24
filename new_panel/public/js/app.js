@@ -90,8 +90,7 @@ window.addEventListener('load', () => {
                 let arrP = responsePrimary.data.service.split("\n")
                 arrP = arrP[7].split(/[ ]+/)
                 cpuP = arrP[9]
-                upTimeP = arrP[11]
-                upTimeP = upTimeP.substring(0, upTimeP.length - 3);
+                upTimeP = `${arrP[11]}`
             }
             var { statusSecondary, mapSecondary, missionSecondary, playersSecondary, playerCountSecondary } = { statusSecondary: responseSecondary.data.status, mapSecondary: responseSecondary.data.map, missionSecondary: responseSecondary.data.raw.game, playersSecondary: responseSecondary.data.players, playerCountSecondary: responseSecondary.data.players.length };
             let cpuS = "-";
@@ -100,8 +99,7 @@ window.addEventListener('load', () => {
                 let arrS = responseSecondary.data.service.split("\n")
                 arrS = arrS[7].split(/[ ]+/)
                 cpuS = arrS[9]
-                upTimeS = arrS[11]
-                upTimeS = upTimeS.substring(0, upTimeS.length - 3);
+                upTimeS = `${arrS[11]}`
             }
             var servers = {
                 "Primary": {
@@ -145,8 +143,7 @@ window.addEventListener('load', () => {
                 let arrS = response.data.service.split("\n")
                 arrS = arrS[7].split(/[ ]+/)
                 cpuS = arrS[9]
-                upTimeS = arrS[11]
-                upTimeS = upTimeS.substring(0, upTimeS.length - 3);
+                upTimeS = `${arrS[11]}`
             }
             html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length, cpu: cpuS, uptime: upTimeS });
             el.html(html);
@@ -231,9 +228,6 @@ window.addEventListener('load', () => {
                 let arrP = responsePrimary.data.service.split("\n")
                 arrP = arrP[7].split(/[ ]+/)
                 cpuP = parseFloat(arrP[9]);
-                timeP = arrP[11];
-                timeP = timeP.substring(0, timeP.length - 3);
-                $(".Primary.Server .up-time").text(`${timeP}`)
                 $(".Primary.Server .cpu-usage").text(`${cpuP}%`)
             }
             switch (statusPrimary) {
@@ -285,9 +279,6 @@ window.addEventListener('load', () => {
                 let arrS = responseSecondary.data.service.split("\n")
                 arrS = arrS[7].split(/[ ]+/)
                 cpuS = parseFloat(arrS[9])
-                timeS = arrS[11];
-                timeS = timeS.substring(0, timeS.length - 3);
-                $(".Secondary.Server .up-time").text(`${timeS}`)
                 $(".Secondary.Server .cpu-usage").text(`${cpuS}%`)
             }
             switch (statusSecondary) {
