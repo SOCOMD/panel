@@ -154,6 +154,7 @@ async function runCMD(req, res, action) {
         const p = await lookpath(mainCMD);
         if (p) {
             var command = mainCMD;
+            var logging = "";
             var file = "";
             var fileText = "";
             var server = "";
@@ -185,7 +186,7 @@ async function runCMD(req, res, action) {
                     break;
             }
             if (action == "on" && req.body.logging) {
-                command = command + " enableLogging";
+                logging = "enableLogging";
             }
             if (file !== "") {
                 try {
@@ -216,7 +217,7 @@ async function runCMD(req, res, action) {
             console.log(command)
                 // res.send({ response: "success", command: command });
             try {
-                var child = spawn(mainCMD, [command, server], {
+                var child = spawn(mainCMD, [command, server, logging], {
                     detached: true,
                     stdio: ['ignore']
                 });
@@ -224,7 +225,7 @@ async function runCMD(req, res, action) {
                     console.log(error)
                     res.send({ response: "error", error: error });
                 })
-                res.send({ response: "success", command: command });
+                res.send({ response: "success", command: command, logging: logging });
                 child.unref()
             } catch (error) {
                 errorHandler(error, req, res);
