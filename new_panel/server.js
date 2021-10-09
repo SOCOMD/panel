@@ -224,7 +224,7 @@ async function runCMD(req, res, action) {
                     console.log(error)
                     res.send({ response: "error", error: error });
                 })
-                res.send({ response: "success" });
+                res.send({ response: "success", command: command });
                 child.unref()
             } catch (error) {
                 errorHandler(error, req, res);
