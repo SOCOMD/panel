@@ -17,6 +17,7 @@ const primaryServerModsFile = "/srv/games/arma3/common/SOCOMD_mods.load";
 const secondaryServerModsFile = "/srv/games/arma3/common/SECONDARY_mods.load";
 const pidFilePath = "/home/gameserver/.local/";
 const mainCMD = "/home/gameserver/.local/bin/socomd-server-win";
+const hcCMD = "/home/gameserver/.local/bin/socomd-server";
 const startCMD = "start";
 const stopCMD = "stop";
 const primaryName = "SOCOMD";
@@ -225,6 +226,25 @@ async function runCMD(req, res, action) {
                     console.log(error)
                     res.send({ response: "error", error: error });
                 })
+                if (server == primaryName) {
+                    child = spawn(hcCMD, [command, "HC1"], {
+                        detached: true,
+                        stdio: ['ignore']
+                    });
+                    child.on("error", (error) => {
+                        console.log(error)
+                        res.send({ response: "error", error: error });
+                    })
+
+                    child = spawn(hcCMD, [command, "HC2"], {
+                        detached: true,
+                        stdio: ['ignore']
+                    });
+                    child.on("error", (error) => {
+                        console.log(error)
+                        res.send({ response: "error", error: error });
+                    })
+                }
                 res.send({ response: "success", command: `${mainCMD} ${command} ${server} ${logging}`, logging: logging });
                 child.unref()
             } catch (error) {
