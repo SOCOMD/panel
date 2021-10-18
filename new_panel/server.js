@@ -226,25 +226,6 @@ async function runCMD(req, res, action) {
                     console.log(error)
                     res.send({ response: "error", error: error });
                 })
-                if (server == primaryName) {
-                    child = spawn(hcCMD, [command, "HC1"], {
-                        detached: true,
-                        stdio: ['ignore']
-                    });
-                    child.on("error", (error) => {
-                        console.log(error)
-                        res.send({ response: "error", error: error });
-                    })
-
-                    child = spawn(hcCMD, [command, "HC2"], {
-                        detached: true,
-                        stdio: ['ignore']
-                    });
-                    child.on("error", (error) => {
-                        console.log(error)
-                        res.send({ response: "error", error: error });
-                    })
-                }
                 res.send({ response: "success", command: `${mainCMD} ${command} ${server} ${logging}`, logging: logging });
                 child.unref()
             } catch (error) {
