@@ -24,7 +24,11 @@
     "(map)tem_vinjesvingen": "-mod=mods/SOCOMD_Extra/@tem_vinjesvingen",
     "(map)tria": "-mod=mods/SOCOMD_Extra/@tria",
     "(map)virolahti": "-mod=mods/SOCOMD_Extra/@virolahti",
-    "(map)tembelan island": "-mod=mods/SOCOMD_Extra/@tembelan_island",
-    "(zeus)fire support plus": "-mod=mods/SOCOMD_Extra/@fire_support_plus",
-    "(zeus)grad civilians": "-mod=mods/SOCOMD_Extra/@grad_civs"
+    "(map)tembelan_island": "-mod=mods/SOCOMD_Extra/@tembelan_island",
+    "(zeus)fire_support_plus": "-mod=mods/SOCOMD_Extra/@fire_support_plus",
+    "(zeus)weather_plus": "-mod=mods/SOCOMD_Extra/@weather_plus",
+    "(zeus)zeus_immersion_sounds": "-mod=mods/SOCOMD_Extra/@zeus_immersion_sounds",
+    "(zeus)nr6_pack_hal": "-mod=mods/SOCOMD_Extra/@nr6_pack_hal",
+    "(zeus)drongos_map_pop": "-mod=mods/SOCOMD_Extra/@drongos_map_pop",
+    "(zeus)grad_civilians": "-mod=mods/SOCOMD_Extra/@grad_civs"
 }
