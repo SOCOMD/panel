@@ -22,10 +22,9 @@
     { "path": "-mod=mods/SOCOMD_Core/@socomd_kat_medical" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_lambs" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_mbg" },
-    { "path": "-mod=mods/SOCOMD_Core/@socomd_uniforms" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_vehicles" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_weapons" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_wearables" },
     { "path": "-mod=mods/SOCOMD_Core/@vet_unflipping" },
-    { "path": "-serverMod=/srv/games/mods/@profiling_companion" }
+    { "path": "-serverMod=mods/SOCOMD_Mission_Utils/@profiling_companion" }
 ]
