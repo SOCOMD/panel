@@ -15,7 +15,7 @@ window.addEventListener('load', () => {
     var infoUpdateTimer = null;
     var cpuGraphP = [];
     var cpuGraphS = [];
-    
+
     var playerCountP = [];
     var playerCountS = [];
     // Compile Handlebar Templates
@@ -88,39 +88,39 @@ window.addEventListener('load', () => {
             let upTimeP = "-"
             if (!!responsePrimary.data.service) {
                 let arrP = responsePrimary.data.service.split("\n")
-                arrP = arrP[1].split(/[ ]+/)
-                cpuP = arrP[2];
-                upTimeP = `Since ${arrP[8]} AEST`
+                arrP = arrP[7].split(/[ ]+/)
+                cpuP = `${arrP[8] ? arrP[8] : "-"}`;
+                upTimeP = arrP[10]
             }
             var { statusSecondary, mapSecondary, missionSecondary, playersSecondary, playerCountSecondary } = { statusSecondary: responseSecondary.data.status, mapSecondary: responseSecondary.data.map, missionSecondary: responseSecondary.data.raw.game, playersSecondary: responseSecondary.data.players, playerCountSecondary: responseSecondary.data.players.length };
             let cpuS = "-";
             let upTimeS = "-";
             if (!!responseSecondary.data.service) {
                 let arrS = responseSecondary.data.service.split("\n")
-                arrS = arrS[1].split(/[ ]+/)
-                cpuS = arrS[2]
-                upTimeS = `Since ${arrS[8]} AEST`
+                arrS = arrS[7].split(/[ ]+/)
+                cpuS = `${arrS[8]?arrS[8]:"-"}`;
+                upTimeS = arrS[10]
             }
             var servers = {
                 "Primary": {
-                    "name":"Primary Server",
+                    "name": "Primary Server",
                     "status": statusPrimary,
                     "map": mapPrimary,
                     "mission": missionPrimary,
                     "players": playersPrimary,
                     "playerCount": playerCountPrimary,
                     "cpu": cpuP,
-                    "uptime":upTimeP
+                    "uptime": upTimeP
                 },
                 "Secondary": {
-                    "name":"Secondary Server",
+                    "name": "Secondary Server",
                     "status": statusSecondary,
                     "map": mapSecondary,
                     "mission": missionSecondary,
                     "players": playersSecondary,
                     "playerCount": playerCountSecondary,
                     "cpu": cpuS,
-                    "uptime":upTimeS
+                    "uptime": upTimeS
                 },
             };
             html = serverTemplate({ servers: servers });
@@ -135,14 +135,15 @@ window.addEventListener('load', () => {
         el.html(html);
         try {
             const response = await api.post('/serverState', { port: port });
-            console.log(response.data)
+            //console.log(response.data)
             var { name, color, players, status, map, mission } = { name: name, color: "blue", players: response.data.players, status: response.data.status, map: response.data.map, mission: response.data.raw.game };
-            let cpuS = "-",upTimeS = "-";
+            let cpuS = "-",
+                upTimeS = "-";
             if (!!response.data.service) {
                 let arrS = response.data.service.split("\n")
-                arrS = arrS[1].split(/[ ]+/)
-                cpuS = arrS[2]
-                upTimeS = `Since ${arrS[8]} AEST`
+                arrS = arrS[7].split(/[ ]+/)
+                cpuS = `${arrS[8]?arrS[8]:"-"}`;
+                upTimeS = arrS[10]
             }
             html = serverDetailTemplate({ name, color, players, extras: extrasList, status, map, mission, playerCount: players.length, cpu: cpuS, uptime: upTimeS });
             el.html(html);
@@ -163,7 +164,6 @@ window.addEventListener('load', () => {
             $("#turnOn").on("click", async() => {
                 var enableLogging = $("#logging").is(":checked");
                 var selected = $("#extras-select").val();
-                console.log()
                 let res = await api.post('/startServer', { server: name, extras: selected, logging: enableLogging });
                 if (res.data.response === "success") {
                     handleDetailedInfo(name, port);
@@ -214,7 +214,7 @@ window.addEventListener('load', () => {
     }
 
     // handle data retrieval loop. updates once every 5 seconds
-    async function handleInfoUpdate(){
+    async function handleInfoUpdate() {
         // update immediately, then loop
         try {
             // Load Currency Rates
@@ -225,43 +225,51 @@ window.addEventListener('load', () => {
             let cpuP = 0;
             if (!!responsePrimary.data.service) {
                 let arrP = responsePrimary.data.service.split("\n")
-                arrP = arrP[1].split(/[ ]+/)
-                cpuP = parseFloat(arrP[2]);
+                arrP = arrP[7].split(/[ ]+/)
+                cpuP = `${arrP[8] ? arrP[8] : "-"}`;
+                upTimeP = arrP[10]
                 $(".Primary.Server .cpu-usage").text(`${cpuP}%`)
+                $(".Primary.Server .uptime").text(`${upTimeP}`)
             }
-            switch(statusPrimary){
-                case "Online" : {
-                    if(!$(".Primary.Server .status-section .cog.icon").hasClass("green")){
-                        $(".Primary.Server .status-section .cog.icon").removeClass("red").addClass("green")
-                        $(".Primary.Server .status-section .status-text").css("color","green").text(statusPrimary)
-                    }
-                }; break;
-                
-                case "Offline" : {
-                    if(!$(".Primary.Server .status-section .cog.icon").hasClass("red")){
-                        $(".Primary.Server .status-section .cog.icon").addClass("red").removeClass("green")
-                        $(".Primary.Server .status-section .status-text").css("color","red").text(statusPrimary)
-                    }
-                }; break;
-                
-                case "Starting..." : {
-                    if($(".Primary.Server .status-section .cog.icon").hasClass("green") || $(".Primary.Server .status-section .cog.icon").hasClass("red")){
-                        $(".Primary.Server .status-section .cog.icon").removeClass("red").removeClass("green")
-                        $(".Primary.Server .status-section .status-text").css("color","").text(statusPrimary)
-                    }
-                }; break;
+            switch (statusPrimary) {
+                case "Online":
+                    {
+                        if (!$(".Primary.Server .status-section .cog.icon").hasClass("green")) {
+                            $(".Primary.Server .status-section .cog.icon").removeClass("red").addClass("green")
+                            $(".Primary.Server .status-section .status-text").css("color", "green").text(statusPrimary)
+                        }
+                    };
+                    break;
+
+                case "Offline":
+                    {
+                        if (!$(".Primary.Server .status-section .cog.icon").hasClass("red")) {
+                            $(".Primary.Server .status-section .cog.icon").addClass("red").removeClass("green")
+                            $(".Primary.Server .status-section .status-text").css("color", "red").text(statusPrimary)
+                        }
+                    };
+                    break;
+
+                case "Starting...":
+                    {
+                        if ($(".Primary.Server .status-section .cog.icon").hasClass("green") || $(".Primary.Server .status-section .cog.icon").hasClass("red")) {
+                            $(".Primary.Server .status-section .cog.icon").removeClass("red").removeClass("green")
+                            $(".Primary.Server .status-section .status-text").css("color", "").text(statusPrimary)
+                        }
+                    };
+                    break;
             }
             $(".Primary.Server .map-selection").text(mapPrimary)
             $(".Primary.Server .mission-selection").text(missionPrimary)
             $(".Primary.Server .player-count").text(playerCountPrimary)
-            // set last 30 updates
-            if(cpuGraphP.length > 30) {
-                cpuGraphP.splice(0,1);
+                // set last 30 updates
+            if (cpuGraphP.length > 30) {
+                cpuGraphP.splice(0, 1);
             }
             cpuGraphP.push(cpuP)
-            
-            if(playerCountP.length > 30) {
-                playerCountP.splice(0,1);
+
+            if (playerCountP.length > 30) {
+                playerCountP.splice(0, 1);
             }
             playerCountP.push(playerCountPrimary)
 
@@ -270,51 +278,59 @@ window.addEventListener('load', () => {
             let cpuS = 0;
             if (!!responseSecondary.data.service) {
                 let arrS = responseSecondary.data.service.split("\n")
-                arrS = arrS[1].split(/[ ]+/)
-                cpuS = parseFloat(arrS[2])
+                arrS = arrS[7].split(/[ ]+/)
+                cpuS = `${arrS[8]?arrS[8]:"-"}`;
+                upTimeS = arrS[10]
                 $(".Secondary.Server .cpu-usage").text(`${cpuS}%`)
+                $(".Secondary.Server .uptime").text(`${upTimeS}`)
             }
-            switch(statusSecondary){
-                case "Online" : {
-                    if(!$(".Secondary.Server .status-section .cog.icon").hasClass("green")){
-                        $(".Secondary.Server .status-section .cog.icon").removeClass("red").addClass("green")
-                        $(".Secondary.Server .status-section .status-text").css("color","green").text(statusSecondary)
-                    }
-                }; break;
-                
-                case "Offline" : {
-                    if(!$(".Secondary.Server .status-section .cog.icon").hasClass("red")){
-                        $(".Secondary.Server .status-section .cog.icon").addClass("red").removeClass("green")
-                        $(".Secondary.Server .status-section .status-text").css("color","red").text(statusSecondary)
-                    }
-                }; break;
-                
-                case "Starting..." : {
-                    if($(".Secondary.Server .status-section .cog.icon").hasClass("green") || $(".Secondary.Server .status-section .cog.icon").hasClass("red")){
-                        $(".Secondary.Server .status-section .cog.icon").removeClass("red").removeClass("green")
-                        $(".Secondary.Server .status-section .status-text").css("color","").text(statusSecondary)
-                    }
-                }; break;
+            switch (statusSecondary) {
+                case "Online":
+                    {
+                        if (!$(".Secondary.Server .status-section .cog.icon").hasClass("green")) {
+                            $(".Secondary.Server .status-section .cog.icon").removeClass("red").addClass("green")
+                            $(".Secondary.Server .status-section .status-text").css("color", "green").text(statusSecondary)
+                        }
+                    };
+                    break;
+
+                case "Offline":
+                    {
+                        if (!$(".Secondary.Server .status-section .cog.icon").hasClass("red")) {
+                            $(".Secondary.Server .status-section .cog.icon").addClass("red").removeClass("green")
+                            $(".Secondary.Server .status-section .status-text").css("color", "red").text(statusSecondary)
+                        }
+                    };
+                    break;
+
+                case "Starting...":
+                    {
+                        if ($(".Secondary.Server .status-section .cog.icon").hasClass("green") || $(".Secondary.Server .status-section .cog.icon").hasClass("red")) {
+                            $(".Secondary.Server .status-section .cog.icon").removeClass("red").removeClass("green")
+                            $(".Secondary.Server .status-section .status-text").css("color", "").text(statusSecondary)
+                        }
+                    };
+                    break;
             }
             $(".Secondary.Server .map-selection").text(mapSecondary)
             $(".Secondary.Server .mission-selection").text(missionSecondary)
             $(".Secondary.Server .player-count").text(playerCountSecondary)
-            
+
             // set last 30 updates
-            if(cpuGraphS.length > 30) {
-                cpuGraphS.splice(0,1);
+            if (cpuGraphS.length > 30) {
+                cpuGraphS.splice(0, 1);
             }
             cpuGraphS.push(cpuS)
-            
-            if(playerCountS.length > 30) {
-                playerCountS.splice(0,1);
+
+            if (playerCountS.length > 30) {
+                playerCountS.splice(0, 1);
             }
-            console.log("cached data",cpuGraphP, playerCountP,cpuGraphS,playerCountS);
+            //console.log("cached data",cpuGraphP, playerCountP,cpuGraphS,playerCountS);
             playerCountS.push(playerCountSecondary)
-        } catch(error){
+        } catch (error) {
             console.error(error)
         }
-        
+
         if (infoUpdateTimer != null) {
             window.clearTimeout(infoUpdateTimer);
         }
