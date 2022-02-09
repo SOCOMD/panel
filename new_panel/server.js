@@ -56,12 +56,14 @@ app.post('/api/serverState', async(req, res) => {
 
     let fileName = primaryName;
     const serverHost = 'ops.socomd.com';
-    if (req.body.port === 2402) { fileName = secondaryName;
-        serverHost = 'sec.socomd.com' };
+    if (req.body.port === 2402) {
+        fileName = secondaryName;
+        serverHost = 'sec.socomd.com'
+    };
     try {
         Gamedig.query({
             type: 'arma3',
-            host: 'socomd.com',
+            host: serverHost,
             port: req.body.port,
             attemptTimeout: 500
         }).then((state) => {
