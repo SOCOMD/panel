@@ -53,6 +53,11 @@ const errorHandler = (err, req, res) => {
 
 // Fetch Latest Currency Rates
 app.post('/api/serverState', async(req, res) => {
+
+    let fileName = primaryName;
+    const serverHost = 'ops.socomd.com';
+    if (req.body.port === 2402) { fileName = secondaryName;
+        serverHost = 'sec.socomd.com' };
     try {
         Gamedig.query({
             type: 'arma3',
@@ -100,8 +105,6 @@ app.post('/api/serverState', async(req, res) => {
                 });
             });
         }).catch((error) => {
-            let fileName = primaryName;
-            if (req.body.port === 2402) { fileName = secondaryName }
             fs.readFile(`${pidFilePath}/${fileName}.pid`, function(err, data) {
                 console.log(data)
 
