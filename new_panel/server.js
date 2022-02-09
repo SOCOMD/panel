@@ -54,8 +54,8 @@ const errorHandler = (err, req, res) => {
 // Fetch Latest Currency Rates
 app.post('/api/serverState', async(req, res) => {
 
-    let fileName = primaryName;
-    const serverHost = 'ops.socomd.com';
+    var fileName = primaryName;
+    var serverHost = 'ops.socomd.com';
     if (req.body.port === 2402) {
         fileName = secondaryName;
         serverHost = 'sec.socomd.com'
