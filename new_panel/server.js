@@ -11,7 +11,7 @@ let jsonData = require(`${__dirname}/public/json/core.json`);
 
 
 const app = express();
-const port = 3131;
+const port = 3000;
 
 const primaryServerModsFile = "/srv/games/arma3/common/SOCOMD_mods.load";
 const secondaryServerModsFile = "/srv/games/arma3/common/SECONDARY_mods.load";
@@ -75,7 +75,7 @@ app.post('/api/serverState', async(req, res) => {
             fs.readFile(`${pidFilePath}/${fileName}.pid`, function(err, data) {
                 console.log(data)
 
-                exec(`ps u ${data}`, (error, stdout, stderr) => {
+                exec(`top -b -n1 -p${data}`, (error, stdout, stderr) => {
                     if (error) {
                         console.log(`error: ${error.message}`);
                         error["repsonse"] = error.message;
@@ -110,7 +110,7 @@ app.post('/api/serverState', async(req, res) => {
             fs.readFile(`${pidFilePath}/${fileName}.pid`, function(err, data) {
                 console.log(data)
 
-                exec(`ps u ${data}`, (error, stdout, stderr) => {
+                exec(`top -b -n1 -p${data}`, (error, stdout, stderr) => {
                     if (error) {
                         console.log(`error: ${error.message}`);
                         error["repsonse"] = error.message;
