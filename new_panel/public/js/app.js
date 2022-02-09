@@ -382,6 +382,6 @@ window.addEventListener('load', () => {
         timer = window.setTimeout(() => {
             timer = null;
             $(".message").transition('fade')
-        }, 7000);;
+        }, 7000);
     }
 });
