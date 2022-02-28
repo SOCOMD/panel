@@ -197,10 +197,11 @@ async function runCMD(req, res, action) {
             if (file !== "") {
                 try {
                     let modPack = "core";
-
+                    let extrasBody = req.body.extras;
                     if (req.body.extras.length > 0) {
-                        if (req.body.extras.indexOf("dev") != -1) {
+                        if (extrasBody.indexOf("dev") != -1) {
                             modPack = "mod-tests";
+                            extrasBody.splice(extrasBody.indexOf("dev"), 1);
                         }
                     }
                     fs.readFile(`${__dirname}/public/json/${modPack}.json`, function(err, data) {
@@ -210,9 +211,9 @@ async function runCMD(req, res, action) {
                             fileText = fileText + mod.path + "\r\n";
                         };
 
-                        if (req.body.extras.length > 0) {
+                        if (extrasBody.length > 0) {
 
-                            req.body.extras.forEach(mod => {
+                            extrasBody.forEach(mod => {
                                 fileText = fileText + mod + "\n";
                             });
                         }
