@@ -196,8 +196,14 @@ async function runCMD(req, res, action) {
             }
             if (file !== "") {
                 try {
+                    let modPack = "core";
 
-                    fs.readFile(`${__dirname}/public/json/core.json`, function(err, data) {
+                    if (req.body.extras.length > 0) {
+                        if (req.body.extras.indexOf("dev") != -1) {
+                            modPack = "mod-tests";
+                        }
+                    }
+                    fs.readFile(`${__dirname}/public/json/${modPack}.json`, function(err, data) {
                         if (err) throw err;
                         var jsonData = JSON.parse(data)
                         for (mod of jsonData) {
