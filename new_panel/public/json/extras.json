@@ -32,5 +32,6 @@
     "(zeus) grad_civilians": "-mod=mods/SOCOMD_Extra/@grad_civs",
     "(zeus) nr6_pack_hal": "-mod=mods/SOCOMD_Extra/@nr6_pack_hal",
     "(zeus) weather_plus": "-mod=mods/SOCOMD_Extra/@weather_plus",
-    "(zeus) zeus_immersion_sounds": "-mod=mods/SOCOMD_Extra/@zeus_immersion_sounds"
+    "(zeus) zeus_immersion_sounds": "-mod=mods/SOCOMD_Extra/@zeus_immersion_sounds",
+    "(zeus) Socomd Sounds": "-mod=mods/SOCOMD_Extra/@Socomd_Sounds_Library"
 }
