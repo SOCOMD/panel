@@ -13,8 +13,8 @@ let jsonData = require(`${__dirname}/public/json/core.json`);
 const app = express();
 const port = 3131;
 
-const primaryServerModsFile = "/srv/games/arma3/common/SOCOMD_mods.load";
-const secondaryServerModsFile = "/srv/games/arma3/common/SECONDARY_mods.load";
+const primaryServerModsFile = "/home/gameserver/games/arma3/common/SOCOMD_mods.load";
+const secondaryServerModsFile = "/home/gameserver/games/arma3/common/SECONDARY_mods.load";
 const pidFilePath = "/home/gameserver/.local/";
 const mainCMD = "/home/gameserver/.local/bin/socomd-server";
 const hcCMD = "/home/gameserver/.local/bin/socomd-server";
