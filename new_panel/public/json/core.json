@@ -19,7 +19,6 @@
     { "path": "-mod=mods/SOCOMD_Core/@socomd_em" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_extras" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_interface" },
-    { "path": "-mod=mods/SOCOMD_Core/@socomd_kat_medical" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_lambs" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_mbg" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_vehicles" },
