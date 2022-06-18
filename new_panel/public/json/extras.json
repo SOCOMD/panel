@@ -30,6 +30,5 @@
     "(util) zulu headless": "-mod=mods/SOCOMD_Extra/@zulu_headless_modules",
     "(zeus) drongos_map_pop": "-mod=mods/SOCOMD_Extra/@drongos_map_pop",
     "(zeus) fire_support_plus": "-mod=mods/SOCOMD_Extra/@fire_support_plus",
-    "(zeus) weather_plus": "-mod=mods/SOCOMD_Extra/@weather_plus",
-    "(zeus) Socomd Sounds": "-mod=mods/SOCOMD_Extra/@socomd_sounds_library"
+    "(zeus) weather_plus": "-mod=mods/SOCOMD_Extra/@weather_plus"
 }
