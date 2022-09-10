@@ -18,6 +18,7 @@
     "(map) rhspkl": "-mod=mods/SOCOMD_Extra/@map_rhspkl",
     "(map) saint_kapaulio": "-mod=mods/SOCOMD_Extra/@map_saint_kapaulio",
     "(map) sugar_lake": "-mod=mods/SOCOMD_Extra/@map_sugar_lake",
+    "(util) animate": "-mod=mods/SOCOMD_Extra/@animate",
     "(util) zulu headless": "-mod=mods/SOCOMD_Extra/@zulu_headless_modules",
     "(zeus) drongos_map_pop": "-mod=mods/SOCOMD_Extra/@drongos_map_pop",
     "(zeus) drongos_spooks": "-mod=mods/SOCOMD_Extra/@drongospooks",

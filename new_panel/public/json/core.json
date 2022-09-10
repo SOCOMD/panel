@@ -24,6 +24,5 @@
     { "path": "-mod=mods/SOCOMD_Core/@socomd_vehicles" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_weapons" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_wearables" },
-    { "path": "-mod=mods/SOCOMD_Core/@vet_unflipping" },
-    { "path": "-serverMod=mods/SOCOMD_Mission_Utils/@profiling_companion" }
+    { "path": "-mod=mods/SOCOMD_Core/@vet_unflipping" }
 ]
