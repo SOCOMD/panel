@@ -1,12 +1,16 @@
 window.addEventListener('load', () => {
     const el = $('#app');
-    var core = {};
-    $.getJSON("json/core.json", function(data) {
-        core = data
-    });
-    var extrasList = {};
-    $.getJSON("json/extras.json", function(data) {
-        extrasList = data
+    //var core = {};
+    //$.getJSON("json/core.json", function(data) {
+    //    core = data
+    //});
+    //var extrasList = {};
+    //$.getJSON("json/extras.json", function(data) {
+    //    extrasList = data
+    //});
+    var modsList = {};
+    $.getJSON("json/mods.json", function(data) {
+        modsList = data
     });
     var currentRoute = "/";
     var currentServer = "Primary Server";
@@ -85,7 +89,7 @@ window.addEventListener('load', () => {
             // Display Rates Table
             var { statusPrimary, mapPrimary, missionPrimary, playersPrimary, playerCountPrimary } = { statusPrimary: responsePrimary.data.status, mapPrimary: responsePrimary.data.map, missionPrimary: responsePrimary.data.raw.game, playersPrimary: responsePrimary.data.players, playerCountPrimary: responsePrimary.data.players.length };
             let cpuP = "-";
-            let upTimeP = "-"
+            let upTimeP = "-";
             if (!!responsePrimary.data.service) {
                 let arrP = responsePrimary.data.service.split("\n")
                 arrP = arrP[1].split(/[ ]+/)
