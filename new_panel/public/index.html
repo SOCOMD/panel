@@ -159,6 +159,12 @@
                 {{> serverInfo}}
                 <div class="ui list">
                     <div class="item">
+                        <select name="core_mods" id="core_mods">
+                            <option value="core" selected>SOCOMD Core Mods</option>
+                            <option value="vietnam">Vietnam Mods</option>
+                        </select>
+                    </div>
+                    <div class="item">
                         <div class="ui form">
                             <div class="field">
                                 <select id="extras-select" class="ui fluid search dropdown" {{#ifEquals status 'Online'}} disabled {{/ifEquals}} multiple>
