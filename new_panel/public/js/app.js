@@ -1,16 +1,12 @@
 window.addEventListener('load', () => {
     const el = $('#app');
-    //var core = {};
-    //$.getJSON("json/core.json", function(data) {
-    //    core = data
-    //});
-    //var extrasList = {};
-    //$.getJSON("json/extras.json", function(data) {
-    //    extrasList = data
-    //});
-    var modsList = {};
-    $.getJSON("json/mods.json", function(data) {
-        modsList = data
+    var core = {};
+    $.getJSON("json/core.json", function(data) {
+        core = data
+    });
+    var extrasList = {};
+    $.getJSON("json/extras.json", function(data) {
+        extrasList = data
     });
     var currentRoute = "/";
     var currentServer = "Primary Server";
@@ -167,8 +163,9 @@ window.addEventListener('load', () => {
             $("#turnOn").on("click", async() => {
                 var enableLogging = $("#logging").is(":checked");
                 var selected = $("#extras-select").val();
+                var baseMods = $("#baseMods-select").val();
                 console.log()
-                let res = await api.post('/startServer', { server: name, extras: selected, logging: enableLogging });
+                let res = await api.post('/startServer', { server: name, extras: selected, logging: enableLogging, modPack: baseMods });
                 if (res.data.response === "success") {
                     handleDetailedInfo(name, port);
                     $('.message').addClass("positive").removeClass("negative").find(".header").text("Server has been started")
