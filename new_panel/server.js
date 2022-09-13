@@ -196,7 +196,7 @@ async function runCMD(req, res, action) {
             }
             if (file !== "") {
                 try {
-                    let modPack = "core";
+                    let modPack = req.body.modPack;
                     let extrasBody = req.body.extras;
                     if (req.body.extras.length > 0) {
                         if (extrasBody.indexOf("dev") != -1) {
