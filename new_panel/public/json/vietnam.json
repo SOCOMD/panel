@@ -4,6 +4,20 @@
     { "path": "-mod=mods/SOCOMD_Vietnam/@socomd_ace" },
     { "path": "-mod=mods/SOCOMD_Vietnam/@ace_sog_compat" },
     { "path": "-mod=mods/SOCOMD_Vietnam/@socomd_acre2" },
-    { "path": "-mod=mods/SOCOMD_Vietnam/@acre_sog_compat" }, 
-    { "path": "-mod=mods/SOCOMD_Core/@vet_unflipping" }
+    { "path": "-mod=mods/SOCOMD_Vietnam/@acre_sog_compat" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@ch_view_distance" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@dismount_where_you_look" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@gge_core" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@ace3_extensions_animations" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@gge_captive_animation" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@kat" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@no_smoke_bounce" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@pace_count_beads" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@ragdoll_physics_plus" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@rr_immersive_maps" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@rr_immersive_maps_fixes" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@socomd_zeus_enhanced" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@socomd_crows_zeus" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@sog_melee_tweak" },
+    { "path": "-mod=mods/SOCOMD_Vietnam/@vet_unflipping" }
 ]
