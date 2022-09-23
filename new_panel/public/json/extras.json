@@ -1,8 +1,5 @@
 {
-    "(cdlc) SOG Prairie Fire": "-mod=vn",
     "(cdlc) Western Sahara": "-mod=ws",
-    "(compat) sog_ace3_compat": "-mod=mods/SOCOMD_Extra/@ace_sog_compat",
-    "(compat) sog_acre2_compat": "-mod=mods/SOCOMD_Extra/@acre_sog_compat",
     "(map) anizay": "-mod=mods/SOCOMD_Extra/@anizay",
     "(map) colombia": "-mod=mods/SOCOMD_Extra/@colombia",
     "(map) fata_a3": "-mod=mods/SOCOMD_Extra/@fata_a3",
