@@ -1,6 +1,6 @@
 [
     { "path": "-mod=mods/SOCOMD_Core/@socomd_cba_a3" },
-    { "path": "-mod=mods/SOCOMD_Core/@socomd" },
+    { "path": "-mod=mods/SOCOMD_Extra/@socomd_dev_build" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_ace" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_acre2" },
     { "path": "-mod=mods/SOCOMD_Core/@3cb_factions" },
