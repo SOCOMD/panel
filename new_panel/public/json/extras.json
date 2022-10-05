@@ -1,7 +1,5 @@
 {
     "(cdlc) Western Sahara": "-mod=ws",
-    "(dev) kat medical": "-mod=mods/SOCOMD_Extra/@kat",
-    "(dev) socomd dev build": "-mod=mods/SOCOMD_Extra/@socomd_dev_build",
     "(map) anizay": "-mod=mods/SOCOMD_Extra/@anizay",
     "(map) colombia": "-mod=mods/SOCOMD_Extra/@colombia",
     "(map) fata_a3": "-mod=mods/SOCOMD_Extra/@fata_a3",
