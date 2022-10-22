@@ -24,7 +24,7 @@
     "(gameplay) grad captive walking": "-mod=mods/SOCOMD_Extra/@grad_captive_walking",
     "(gameplay) simple craters": "-mod=mods/SOCOMD_Extra/@simple_craters",
     "(util) zulu headless": "-mod=mods/SOCOMD_Extra/@zulu_headless_modules",
-    "(util) zulu headless": "-mod=mods/SOCOMD_Extra/@werthles_headless_modules",
+    "(util) werthles headless": "-mod=mods/SOCOMD_Extra/@werthles_headless_modules",
     "(zeus) wk_zombies_creatures (req. melee sys)": "-mod=mods/SOCOMD_Extra/@wk_zombies_creatures_requires_melee_system",
     "(dependency) improved_melee_system": "-mod=mods/SOCOMD_Extra/@improved_melee_system",
     "(zeus) grad civilians": "-mod=mods/SOCOMD_Extra/@grad_civilians",
