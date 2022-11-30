@@ -23,7 +23,7 @@
     "(map) bala murghab": "-mod=mods/SOCOMD_Extra/@map_bala_murghab",
     "(gameplay) animate": "-mod=mods/SOCOMD_Extra/@animate",
     "(gameplay) grad captive walking": "-mod=mods/SOCOMD_Extra/@grad_captive_walking",
-    "(gameplay) simple craters": "-mod=mods/SOCOMD_Extra/@simple_craters",
+    "(gameplay) improved craters": "-mod=mods/SOCOMD_Extra/@improved_craters",
     "(util) zulu headless": "-mod=mods/SOCOMD_Extra/@zulu_headless_modules",
     "(util) werthles headless": "-mod=mods/SOCOMD_Extra/@werthles_headless_modules",
     "(zeus) wk_zombies_creatures (req. melee sys)": "-mod=mods/SOCOMD_Extra/@wk_zombies_creatures_requires_melee_system",
