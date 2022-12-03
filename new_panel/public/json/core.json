@@ -3,7 +3,7 @@
     { "path": "-mod=mods/SOCOMD_Core/@socomd" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_ace" },
     { "path": "-mod=mods/SOCOMD_Core/@socomd_acre2" },
-    { "path": "-mod=mods/SOCOMD_Core/@kat_legacy" },
+    { "path": "-mod=mods/SOCOMD_Core/@kat_no_surgery" },
     { "path": "-mod=mods/SOCOMD_Core/@3cb_factions" },
     { "path": "-mod=mods/SOCOMD_Core/@3cb_vehicle" },
     { "path": "-mod=mods/SOCOMD_Core/@3cb_weapons" },
