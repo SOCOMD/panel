@@ -21,7 +21,6 @@
     "(map) fayshkhabur": "-mod=mods/SOCOMD_Extra/@map_fayshkhabur",
     "(map) esseker": "-mod=mods/SOCOMD_Extra/@map_esseker",
     "(map) bala murghab": "-mod=mods/SOCOMD_Extra/@map_bala_murghab",
-    "(gameplay) animate": "-mod=mods/SOCOMD_Extra/@animate",
     "(gameplay) grad captive walking": "-mod=mods/SOCOMD_Extra/@grad_captive_walking",
     "(gameplay) improved craters": "-mod=mods/SOCOMD_Extra/@improved_craters",
     "(util) zulu headless": "-mod=mods/SOCOMD_Extra/@zulu_headless_modules",
